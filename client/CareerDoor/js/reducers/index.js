@@ -1,13 +1,13 @@
-// import { REHYDRATE } from 'redux-persist';
 import { combineReducers } from 'redux'
 import Companies from './Companies'
-
+import Navigation from './Navigation'
 
 export default combineReducers({
-  Companies
-
+  Companies,
+  Navigation
 })
 
+// import { REHYDRATE } from 'redux-persist';
 // const reducers =  combineReducers({
 //   Companies
 //

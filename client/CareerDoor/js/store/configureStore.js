@@ -1,14 +1,16 @@
 
 import { createStore, applyMiddleware } from 'redux'
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger';
+import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
+import { navMiddleware } from '../navigation/redux'
 
 const persistConfig = {
-  key: 'root',
-  storage
+  key: 'rooter',
+  storage,
+  blacklist: ['Navigation']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -17,7 +19,7 @@ export default function configureStore(onComplete) {
   const logger = createLogger();
   const store = createStore(
         persistedReducer,
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk, navMiddleware, logger)
     )
   const persistor = persistStore(store, null, () => {
     if (onComplete) {
@@ -26,7 +28,7 @@ export default function configureStore(onComplete) {
 
   // clear storage when app is reloaded.
   if (__DEV__) {
-    persistor.purge();
+    // persistor.purge();
   }
 
   // if (module.hot) {
