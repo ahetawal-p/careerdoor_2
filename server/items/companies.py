@@ -5,8 +5,8 @@ class Companies(Item):
     __base_url__ = 'https://www.careercup.com/categories'
 
     qUrl = XPath('//a/@href')
-    qCount = XPath('//a/text()')
-    companyName = XPath('translate(normalize-space(//text()[2]), "()", "")')
+    companyName = XPath('//a/text()')
+    qCount = XPath('translate(normalize-space(//text()[2]), "()", "")')
 
     class Meta:
         source = XPath("//div[@id='mainpagebody']"

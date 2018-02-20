@@ -23,8 +23,9 @@ const SettingsStack = StackNavigator({
 })
 
 export const AppNavigator = TabNavigator({
-  Home: { screen: HomeStack },
-  Settings: { screen: SettingsStack }
+  Home: { screen: HomeStack, navigationOptions: { title: 'Header title' } },
+  Settings: { screen: SettingsStack },
+
 })
 
 class CareerDoor extends React.Component {
@@ -39,6 +40,7 @@ class CareerDoor extends React.Component {
     return (
       <AppNavigator
         navigation={navigation}
+        screenProps={{ test: 'amit' }}
       />
     );
   }

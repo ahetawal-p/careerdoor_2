@@ -28,7 +28,7 @@ export default function configureStore(onComplete) {
 
   // clear storage when app is reloaded.
   if (__DEV__) {
-    // persistor.purge();
+    persistor.purge();
   }
 
   // if (module.hot) {
