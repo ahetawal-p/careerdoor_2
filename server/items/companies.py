@@ -5,6 +5,7 @@ class Companies(Item):
     __base_url__ = 'https://www.careercup.com/categories'
 
     qUrl = XPath('//a/@href')
+    qLogo = XPath('//a/@href')
     companyName = XPath('//a/text()')
     qCount = XPath('translate(normalize-space(//text()[2]), "()", "")')
 
@@ -17,3 +18,8 @@ class Companies(Item):
 
     def clean_qUrl(self, qUrl):
         return 'https://www.careercup.com%s' %qUrl
+
+    def clean_qLogo(self, qLogo):
+        pidLocationIdx = qLogo.find("pid=")
+        logoURI = qLogo[pidLocationIdx+4:] + ".png"
+        return 'https://www.careercup.com/attributeimages/%s' %logoURI
