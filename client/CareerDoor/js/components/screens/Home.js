@@ -1,7 +1,8 @@
 import React,  { PureComponent } from 'react'
-import { Button, Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput, Image } from 'react-native'
+import { Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput, Image, Dimensions } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Button from 'react-native-micro-animated-button'
 import * as Actions from '../../actions/Companies'
 
 class Home extends PureComponent {
@@ -17,6 +18,7 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
+    // this.b1.load()
     this.props.loadCompanies()
   }
 
@@ -56,6 +58,7 @@ class Home extends PureComponent {
   }
 
   _onChangeFilterText = (filterText) => {
+    this.b1.success()
     this.setState(() => ({ filterText }));
   }
 
@@ -63,7 +66,7 @@ class Home extends PureComponent {
     const filterRegex = new RegExp(String(this.state.filterText), 'i')
     const filter = item => (filterRegex.test(item.companyName))
     const filteredData = this.props.companies.filter(filter)
-
+    console.log((Dimensions.get('window').width) / 2)
     return (
       // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       //   <Text>Home!</Text>
@@ -88,6 +91,17 @@ class Home extends PureComponent {
           ListHeaderComponent={this._getHeader}
           keyExtractor={item => item.companyName}
         />
+        <View style={styles.box2}>
+          <Button
+            foregroundColor="#4cd964"
+            label="Submit"
+            scaleOnSuccess
+            scaleFactor={2.2}
+            onPress={() => this.b1.success()}
+            ref={(ref) => { this.b1 = ref }}
+            successIconName="check"
+          />
+        </View>
       </View>
     );
   }
@@ -96,6 +110,18 @@ class Home extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  box2: {
+    position: 'absolute',
+    top: 40,
+    left: (Dimensions.get('window').width / 2) - 50,
+    width: 100,
+    height: 100,
+
+  },
+  text: {
+    color: '#ffffff',
+    fontSize: 80
   },
   contentContainer: {
     paddingVertical: 16,
