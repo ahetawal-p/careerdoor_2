@@ -11,6 +11,7 @@ export const loadCompanies = () => async (dispatch, getState) => {
   Service.loadCompanies((companiesResponse, error) => {
     if (!error && companiesResponse) {
       // check if the data size changed when compared to local storage
+      // Eventually add some diff logic to see what new companies got added, and push them to start of list
       let isDataChanged = false
       if (currentDataSize !== 0 && currentDataSize < companiesResponse.length) {
         isDataChanged = true
@@ -28,5 +29,11 @@ export const loadCompanies = () => async (dispatch, getState) => {
         error
       })
     }
+  })
+}
+
+export const loadMoreCompanies = () => async (dispatch, getState) => {
+  dispatch({
+    type: types.COMPANIES_LOAD_MORE
   })
 }

@@ -62,9 +62,12 @@ class Home extends PureComponent {
   }
 
   _onLoadMoreClick = () => {
-    // TODO : Perform scrolltoTop on the flatlist
-    this.props.loadCompanies()
+    this._captureRef.scrollToIndex({ animate: true, index:0 });
+    this.props.loadMoreCompanies()
   }
+
+  _getItemLaout = (data, index) =>
+    ({ length: 78, offset: (78 * index), index })
 
   render() {
     const filterRegex = new RegExp(String(this.state.filterText), 'i')
@@ -96,6 +99,8 @@ class Home extends PureComponent {
           numColumns={1}
           ListHeaderComponent={this._getHeader}
           keyExtractor={item => item.companyName}
+          ref={(ref) => { this._captureRef = ref }}
+          getItemLayout={this._getItemLaout}
         />
 
         <LoadingIndicator
@@ -118,12 +123,12 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 8
   },
-  headerFooter: {
-    height:40,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // headerFooter: {
+  //   height:40,
+  //   alignSelf: 'center',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
   headerFooterContainer:{
     padding:8
   },

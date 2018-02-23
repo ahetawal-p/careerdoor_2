@@ -34,6 +34,13 @@ export default function reducer(state = initialState, action) {
         loadingError: action.error
       }
     }
+    case types.COMPANIES_LOAD_MORE: {
+      return {
+        ...state,
+        isLoadingCompany: false,
+        isDataChanged: false,
+      }
+    }
     default:
       return state
   }
