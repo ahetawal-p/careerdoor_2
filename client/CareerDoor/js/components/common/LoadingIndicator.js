@@ -37,7 +37,7 @@ export default class extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.isChangeDetected !== nextProps.isChangeDetected && nextProps.isChangeDetected) {
+    if (nextProps.isDataChanged) {
       this.showLoadMore()
     }
   }
@@ -65,8 +65,7 @@ export default class extends Component {
     if (this.props.onLoadMoreClick) {
       this.props.onLoadMoreClick()
     } else {
-      // Hide indicator
-      this.loaderOpacity.setValue(0)
+      console.error('Seems no callback is provided')
     }
   }
 
@@ -82,19 +81,23 @@ export default class extends Component {
       textColor
     } = this.props;
 
-    return (
-      <View style={[styles.loadContainer, this.props.style]}>
-        <Animated.View style={[styles.mLoaderView, { opacity: this.loaderOpacity, borderColor:foregroundColor, backgroundColor }]}>
-          <ActivityIndicator color={foregroundColor}  />
-        </Animated.View>
+    if (this.props.isLoading || this.props.isDataChanged) {
+      return (
+        <View style={[styles.loadContainer, this.props.style]}>
+          <Animated.View style={[styles.mLoaderView, { opacity: this.loaderOpacity, borderColor:foregroundColor, backgroundColor }]}>
+            <ActivityIndicator color={foregroundColor}  />
+          </Animated.View>
 
-        <Animated.View style={[styles.mLoaderView, styles.mLoadMoreView, { opacity: this.loadMoreWrapperOpacity, width: this.width, borderColor:foregroundColor, backgroundColor }]}>
-          <Animated.Text style={[styles.mLoadMoreText, { opacity: this.loadMoreTextOpacity, color:textColor }]} onPress={this._onLoadMoreClick}>
+          <Animated.View style={[styles.mLoaderView, styles.mLoadMoreView, { opacity: this.loadMoreWrapperOpacity, width: this.width, borderColor:foregroundColor, backgroundColor }]}>
+            <Animated.Text style={[styles.mLoadMoreText, { opacity: this.loadMoreTextOpacity, color:textColor }]} onPress={this._onLoadMoreClick}>
           Load More
-          </Animated.Text>
-        </Animated.View>
-      </View>
-    )
+            </Animated.Text>
+          </Animated.View>
+        </View>
+      )
+    } else {
+      return (<View />)
+    }
   }
 }
 

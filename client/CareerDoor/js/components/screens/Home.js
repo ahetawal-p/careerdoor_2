@@ -63,7 +63,7 @@ class Home extends PureComponent {
 
   _onLoadMoreClick = () => {
     // TODO : Perform scrolltoTop on the flatlist
-    // this.props.loadCompanies()
+    this.props.loadCompanies()
   }
 
   render() {
@@ -97,12 +97,13 @@ class Home extends PureComponent {
           ListHeaderComponent={this._getHeader}
           keyExtractor={item => item.companyName}
         />
-        {(this.props.isLoading || this.props.isDataChanged) && (
-          <LoadingIndicator
-            onLoadMoreClick={this._onLoadMoreClick}
-            isChangeDetected={this.props.isDataChanged}
-          />
-        )}
+
+        <LoadingIndicator
+          onLoadMoreClick={this._onLoadMoreClick}
+          isDataChanged={this.props.isDataChanged}
+          isLoading={this.props.isLoading}
+        />
+
 
       </View>
     );
