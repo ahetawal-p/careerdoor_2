@@ -22,7 +22,7 @@ export const loadCompanies = () => async (dispatch, getState) => {
           companies:companiesResponse,
           isDataChanged
         })
-      }, 2000);
+      }, 1000);
     } else {
       dispatch({
         type: types.COMPANIES_LOAD_ERROR,
@@ -35,5 +35,11 @@ export const loadCompanies = () => async (dispatch, getState) => {
 export const loadMoreCompanies = () => async (dispatch, getState) => {
   dispatch({
     type: types.COMPANIES_LOAD_MORE
+  })
+}
+
+export const openQuestions = company => async (dispatch, getState) => {
+  dispatch({
+    type: types.QUESTIONS
   })
 }

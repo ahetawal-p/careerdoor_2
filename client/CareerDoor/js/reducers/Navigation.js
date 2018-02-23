@@ -1,17 +1,24 @@
 import { NavigationActions } from 'react-navigation'
 import { AppNavigator } from '../CareerDoor'
+import * as types from '../actions/types'
 
 // const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('Home'));
 
 export default function reducer(state = null, action) {
   let nextState;
   switch (action.type) {
-    case 'QuestionDetail':
+    case types.QUESTION_DETAILS:
       nextState = AppNavigator.router.getStateForAction(
         NavigationActions.navigate({ routeName: 'QuestionDetail' }),
         state
-      );
-      break;
+      )
+      break
+    case types.QUESTIONS:
+      nextState = AppNavigator.router.getStateForAction(
+          NavigationActions.navigate({ routeName: 'Questions' }),
+          state
+        )
+      break
     default:
       nextState = AppNavigator.router.getStateForAction(action, state);
       break;
