@@ -40,6 +40,7 @@ export const loadMoreCompanies = () => async (dispatch, getState) => {
 
 export const openQuestions = company => async (dispatch, getState) => {
   dispatch({
-    type: types.QUESTIONS
+    type: types.QUESTIONS,
+    companyName: company.companyName
   })
 }

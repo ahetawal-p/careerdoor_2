@@ -15,7 +15,7 @@ export default function reducer(state = null, action) {
       break
     case types.QUESTIONS:
       nextState = AppNavigator.router.getStateForAction(
-          NavigationActions.navigate({ routeName: 'Questions' }),
+          NavigationActions.navigate({ routeName: 'Questions', params: { title: action.companyName } }),
           state
         )
       break

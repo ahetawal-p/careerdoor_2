@@ -40,14 +40,15 @@ class CareerDoor extends React.Component {
     return (
       <AppNavigator
         navigation={navigation}
-        screenProps={{ test: 'amit' }}
+        // all these props get passed to all child screens from here
+        screenProps={{ title: 'Home' }}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  nav: state.Navigation,
+  nav: state.Navigation
 });
 
 export default connect(mapStateToProps)(CareerDoor);

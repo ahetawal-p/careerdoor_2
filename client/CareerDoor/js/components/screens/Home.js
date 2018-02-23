@@ -7,9 +7,7 @@ import * as Actions from '../../actions/Companies'
 import LoadingIndicator from '../common/LoadingIndicator'
 
 class Home extends PureComponent {
-  static navigationOptions = {
-    title: 'Home123',
-  }
+  static navigationOptions = ({ navigation, screenProps }) => ({ title: screenProps.title });
 
   constructor(props, context) {
     super(props, context);
