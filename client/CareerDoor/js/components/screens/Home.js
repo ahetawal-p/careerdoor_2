@@ -1,9 +1,10 @@
 import React,  { PureComponent } from 'react'
-import { Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput, Image, Dimensions } from 'react-native'
+import { Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Button from 'react-native-micro-animated-button'
 import * as Actions from '../../actions/Companies'
+import LoadingIndicator from '../common/LoadingIndicator'
 
 class Home extends PureComponent {
   static navigationOptions = {
@@ -18,7 +19,6 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
-    // this.b1.load()
     this.props.loadCompanies()
   }
 
@@ -47,7 +47,7 @@ class Home extends PureComponent {
         <View style={styles.itemStyle}>
           <Image
             style={{ width: 50, height: 50, margin:4 }}
-            source={{ uri:item.qLogo }}
+            source={{ uri:item.qLogo, cache:'force-cache' }}
           />
           <Text style={styles.text} numberOfLines={3}>
             {label}
@@ -58,15 +58,20 @@ class Home extends PureComponent {
   }
 
   _onChangeFilterText = (filterText) => {
-    this.b1.success()
     this.setState(() => ({ filterText }));
+  }
+
+  _onLoadMoreClick = () => {
+    // TODO : Perform scrolltoTop on the flatlist
+    // this.props.loadCompanies()
   }
 
   render() {
     const filterRegex = new RegExp(String(this.state.filterText), 'i')
     const filter = item => (filterRegex.test(item.companyName))
     const filteredData = this.props.companies.filter(filter)
-    console.log((Dimensions.get('window').width) / 2)
+
+
     return (
       // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       //   <Text>Home!</Text>
@@ -86,22 +91,19 @@ class Home extends PureComponent {
       <View style={styles.container}>
         <FlatList
           data={filteredData}
+          contentContainerStyle={styles.contentContainer}
           renderItem={this._renderItem}
           numColumns={1}
           ListHeaderComponent={this._getHeader}
           keyExtractor={item => item.companyName}
         />
-        <View style={styles.box2}>
-          <Button
-            foregroundColor="#4cd964"
-            label="Submit"
-            scaleOnSuccess
-            scaleFactor={2.2}
-            onPress={() => this.b1.success()}
-            ref={(ref) => { this.b1 = ref }}
-            successIconName="check"
+        {(this.props.isLoading || this.props.isDataChanged) && (
+          <LoadingIndicator
+            onLoadMoreClick={this._onLoadMoreClick}
+            isChangeDetected={this.props.isDataChanged}
           />
-        </View>
+        )}
+
       </View>
     );
   }
@@ -111,21 +113,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  box2: {
-    position: 'absolute',
-    top: 40,
-    left: (Dimensions.get('window').width / 2) - 50,
-    width: 100,
-    height: 100,
-
-  },
-  text: {
-    color: '#ffffff',
-    fontSize: 80
-  },
   contentContainer: {
-    paddingVertical: 16,
-    paddingHorizontal: 16
+    paddingVertical: 8,
+    paddingHorizontal: 8
   },
   headerFooter: {
     height:40,
@@ -163,12 +153,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     // width: 0, /* Special fix for wraping text */
     flex: 1,
+
   },
 
 });
 
 const mapStateToProps = state => ({
   companies: state.Companies.companies,
+  isLoading: state.Companies.isLoadingCompany,
+  isDataChanged: state.Companies.isDataChanged
 });
 
 const mapDispatchToProps = dispatch => (

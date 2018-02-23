@@ -2,8 +2,9 @@ import * as types from '../actions/types'
 
 const initialState = {
   companies: [],
-  isLoadingCompany: false,
+  isLoadingCompany: true,
   isErrorLoadingCompany: false,
+  isDataChanged: false,
   loadingError:{}
 }
 
@@ -15,17 +16,20 @@ export default function reducer(state = initialState, action) {
         companies: action.companies,
         isLoadingCompany: false,
         isErrorLoadingCompany: false,
+        isDataChanged: action.isDataChanged,
       }
     case types.COMPANIES_LOAD_IN_PROGRESS: {
       return {
         ...state,
-        isLoadingCompany: true
+        isLoadingCompany: true,
+        isDataChanged: false,
       }
     }
     case types.COMPANIES_LOAD_ERROR: {
       return {
         ...state,
         isLoadingCompany: false,
+        isDataChanged: false,
         isErrorLoadingCompany: true,
         loadingError: action.error
       }
