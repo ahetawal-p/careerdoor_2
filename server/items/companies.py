@@ -17,7 +17,9 @@ class Companies(Item):
         route = {'/companies': ''}
 
     def clean_qUrl(self, qUrl):
-        return 'https://www.careercup.com%s' % qUrl
+        pidLocationIdx = qUrl.find("pid=")
+        endpoint = qUrl[pidLocationIdx+4:]
+        return endpoint
 
     def clean_qLogo(self, qLogo):
         pidLocationIdx = qLogo.find("pid=")

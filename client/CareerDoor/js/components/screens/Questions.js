@@ -1,8 +1,15 @@
-import React from 'react'
+import React,  { PureComponent } from 'react'
 import { Button, Text, View } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as Actions from '../../actions/Questions'
 
-export default class Questions extends React.Component {
+class Questions extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
+
+  componentDidMount() {
+    this.props.loadQuestions()
+  }
 
   render() {
     return (
@@ -16,3 +23,14 @@ export default class Questions extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  companies: state.Questions.questions,
+  isLoading: state.Questions.isLoadingQuestions
+});
+
+const mapDispatchToProps = dispatch => (
+   bindActionCreators(Actions, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

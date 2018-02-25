@@ -11,13 +11,14 @@ export async function loadCompanies(callback) {
   }
 }
 
-export async function loadQuestions(callback) {
+export async function loadQuestions(selectedCompany, pageNo, callback) {
   try {
+    console.log(selectedCompany)
     const response = await fetch(
-        'http://127.0.0.1:5000/companies'
+        `http://127.0.0.1:5000/questions?companyurl=${selectedCompany.qUrl}`
       );
     const responseJson = await response.json();
-    callback(responseJson.Companies, null)
+    callback(responseJson.Questions, null)
   } catch (error) {
     console.error(error);
     callback(null, error)

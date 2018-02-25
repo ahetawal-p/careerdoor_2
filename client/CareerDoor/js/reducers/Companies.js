@@ -45,7 +45,7 @@ export default function reducer(state = initialState, action) {
     case types.OPEN_QUESTIONS:
       return {
         ...state,
-        currentSelectedCompany: action.company,
+        currentSelectedCompany: action.currentSelectedCompany,
       }
     default:
       return state
