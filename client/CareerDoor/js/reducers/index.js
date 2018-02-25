@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 import Companies from './Companies'
 import Navigation from './Navigation'
+import Questions from './Questions'
 
 export default combineReducers({
   Companies,
+  Questions,
   Navigation
 })
 

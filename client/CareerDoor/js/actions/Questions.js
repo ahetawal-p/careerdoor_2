@@ -1,13 +1,11 @@
 import * as types from './types'
 import * as Service from './service'
 
-
-export const loadCompanies = () => async (dispatch, getState) => {
+export const loadQuestions = () => async (dispatch, getState) => {
   dispatch({
-    type: types.COMPANIES_LOAD_IN_PROGRESS
+    type: types.QUESTIONS_LOAD_IN_PROGRESS
   })
 
-  const currentDataSize = getState().Companies.companies.length
   Service.loadCompanies((companiesResponse, error) => {
     if (!error && companiesResponse) {
       // check if the data size changed when compared to local storage
@@ -18,30 +16,16 @@ export const loadCompanies = () => async (dispatch, getState) => {
       }
       setTimeout(() => {
         dispatch({
-          type: types.COMPANIES_LOAD_COMPLETED,
+          type: types.QUESTIONS_LOAD_COMPLETED,
           companies:companiesResponse,
           isDataChanged
         })
       }, 1000);
     } else {
       dispatch({
-        type: types.COMPANIES_LOAD_ERROR,
+        type: types.QUESTIONS_LOAD_ERROR,
         error
       })
     }
-  })
-}
-
-export const loadMoreCompanies = () => async (dispatch, getState) => {
-  dispatch({
-    type: types.COMPANIES_LOAD_MORE
-  })
-}
-
-export const openQuestions = company => async (dispatch, getState) => {
-  dispatch({
-    type: types.OPEN_QUESTIONS,
-    companyName: company.companyName,
-    currentSelectedCompany: company
   })
 }

@@ -5,7 +5,8 @@ const initialState = {
   isLoadingCompany: true,
   isErrorLoadingCompany: false,
   isDataChanged: false,
-  loadingError:{}
+  loadingError:{},
+  currentSelectedCompany: {}
 }
 
 export default function reducer(state = initialState, action) {
@@ -41,6 +42,11 @@ export default function reducer(state = initialState, action) {
         isDataChanged: false,
       }
     }
+    case types.OPEN_QUESTIONS:
+      return {
+        ...state,
+        currentSelectedCompany: action.company,
+      }
     default:
       return state
   }
