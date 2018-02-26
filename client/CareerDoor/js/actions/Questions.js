@@ -10,10 +10,17 @@ export const loadQuestions = pageNo => async (dispatch, getState) => {
 
   Service.loadQuestions(selectedCompany, pageNo, (allQuestions, error) => {
     if (!error && allQuestions) {
-      dispatch({
-        type: types.QUESTIONS_LOAD_COMPLETED,
-        questions:allQuestions
-      })
+      setTimeout(() => {
+        dispatch({
+          type: types.QUESTIONS_LOAD_COMPLETED,
+          questions:allQuestions
+        })
+      }, 1000);
+
+      // dispatch({
+      //   type: types.QUESTIONS_LOAD_COMPLETED,
+      //   questions:allQuestions
+      // })
     } else {
       dispatch({
         type: types.QUESTIONS_LOAD_ERROR,

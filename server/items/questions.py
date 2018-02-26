@@ -23,15 +23,15 @@ class Questions(Item):
         qTextStr = []
         if qText:
             from lxml.html import tostring
-            html = tostring(qText[0]).replace(b'\r', b'\n')
-            # print(html)
+            html = tostring(qText[0]).replace(b'\r', b'\n').replace(b'\n\n', b'\n')
+            print(html)
             soup = BeautifulSoup(html, 'html.parser')
             for child in soup.a.contents:
                 if child.select('code'):
                     if child.select('code')[0].pre['class']:
                         codeBlock = child.select('code')[0]
                         lang = codeBlock.pre['class'][0]
-                        lang = "--" + lang[9:] + "--"
+                        lang = "{{" + lang[9:] + "}}"
                         lang += codeBlock.pre.text
                         qTextStr.append(lang)
                 else:

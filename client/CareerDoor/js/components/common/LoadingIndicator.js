@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Platform,
   Dimensions,
   Animated,
   ActivityIndicator,
   View
-} from 'react-native';
+} from 'react-native'
 
 
 const defaultColors =
@@ -25,7 +25,7 @@ const defaultColors =
       red: '#db4437',
       white: '#ffffff',
       black: '#000000'
-    };
+    }
 
 
 export default class extends Component {
@@ -57,7 +57,7 @@ export default class extends Component {
         Animated.timing(this.loadMoreWrapperOpacity, { toValue: 1, duration: 600 }),
       ]),
       Animated.timing(this.loadMoreTextOpacity, { toValue: 1, duration: 2 })
-    ]).start();
+    ]).start()
   }
 
   _onLoadMoreClick = () => {
