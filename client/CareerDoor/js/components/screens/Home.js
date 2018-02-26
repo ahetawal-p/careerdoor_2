@@ -67,7 +67,7 @@ class Home extends PureComponent {
     this.props.loadMoreCompanies()
   }
 
-  _getItemLaout = (data, index) =>
+  _getItemLayout = (data, index) =>
     ({ length: 78, offset: (78 * index), index })
 
   render() {
@@ -101,7 +101,7 @@ class Home extends PureComponent {
           ListHeaderComponent={this._getHeader}
           keyExtractor={item => item.companyName}
           ref={(ref) => { this._captureRef = ref }}
-          getItemLayout={this._getItemLaout}
+          getItemLayout={this._getItemLayout}
         />
 
         <LoadingIndicator

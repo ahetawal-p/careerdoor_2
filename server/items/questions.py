@@ -6,6 +6,7 @@ class Questions(Item):
     __base_url__ = 'https://www.careercup.com'
 
     qText = Css("span.entry", attr='html')
+    qId = XPath("//span[@class='entry']/a/@href")
     ansCount = XPath("//span[@class='rating']/a/span/text()")
     qDate = XPath("//span[@class='author']/abbr/text()")
     qLocation = XPath("normalize-space(//span[@class='author']/text()[3])")
@@ -19,10 +20,10 @@ class Questions(Item):
                  '/page?pid=:companyurl&n=:page'}
 
     def clean_qText(self, qText):
-        qTextStr = ""
+        qTextStr = []
         if qText:
             from lxml.html import tostring
-            html = tostring(qText[0])
+            html = tostring(qText[0]).replace(b'\r', b'\n')
             # print(html)
             soup = BeautifulSoup(html, 'html.parser')
             for child in soup.a.contents:
@@ -30,9 +31,9 @@ class Questions(Item):
                     if child.select('code')[0].pre['class']:
                         codeBlock = child.select('code')[0]
                         lang = codeBlock.pre['class'][0]
-                        qTextStr += "---" + lang + "---"
-                        qTextStr += codeBlock.pre.text
-                        qTextStr += "!!!" + lang + "!!!"
+                        lang = "--" + lang[9:] + "--"
+                        lang += codeBlock.pre.text
+                        qTextStr.append(lang)
                 else:
-                    qTextStr += child.text
+                    qTextStr.append(child.text)
         return qTextStr
