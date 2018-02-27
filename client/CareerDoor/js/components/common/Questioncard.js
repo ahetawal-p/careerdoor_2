@@ -45,7 +45,7 @@ export default class extends PureComponent {
     })
 
     return (
-      <View style={styles.itemStyle}>
+      <View style={[styles.itemStyle, this.props.style]}>
         {allViews}
       </View>
     )
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: 'lightgray',
     borderWidth: 1,
+
   },
   text:{
     fontSize: 16

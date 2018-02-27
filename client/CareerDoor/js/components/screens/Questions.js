@@ -21,8 +21,12 @@ class Questions extends PureComponent {
     console.log(question)
   }
 
-  _renderItem = ({ item }) => (
-    <Questioncard question={item} onPress={this._onQuestionPress} />
+  _renderItem = ({ item, index }) => (
+    <Questioncard
+      style={index % 2 === 0 ? { backgroundColor:'lightgray' } : { backgroundColor:'#f2f2f2' }}
+      question={item}
+      onPress={this._onQuestionPress}
+    />
     )
 
   _renderFooter = () => {

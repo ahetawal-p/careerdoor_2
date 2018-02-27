@@ -37,13 +37,14 @@ class Home extends PureComponent {
   _onCompanyPress = (company) => {
     this.props.openQuestions(company)
   }
-  _renderItem = ({ item }) => {
+  _renderItem = ({ item, index }) => {
     const label = `${item.companyName} (${item.qCount})`
+    const customStyle = index % 2 === 0 ? { backgroundColor:'lightgray' } : { backgroundColor:'#f2f2f2' }
     return  (
       <TouchableHighlight
-        underlayColor="lightgray"
+        underlayColor="gray"
         onPress={() => this._onCompanyPress(item)}
-        style={styles.card}
+        style={[styles.card, customStyle]}
       >
         <View style={styles.itemStyle}>
           <Image
