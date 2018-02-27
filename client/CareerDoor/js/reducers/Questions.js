@@ -4,11 +4,16 @@ const initialState = {
   questions: [],
   isLoadingQuestions: true,
   isErrorLoadingQuestions: false,
-  pageNo: 1
+  pageNo: 0
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case types.OPEN_QUESTIONS:
+      return {
+        ...state,
+        questions: []
+      }
     case types.QUESTIONS_LOAD_IN_PROGRESS:
       return {
         ...state,

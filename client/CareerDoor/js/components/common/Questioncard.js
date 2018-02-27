@@ -20,7 +20,7 @@ export default class extends PureComponent {
           <TouchableHighlight
             underlayColor="red"
             key={key}
-            style={{ flex:1, marginVertical:6 }}
+            style={{ marginVertical:6, width: '100%' }}
             onPress={() => this.props.onPress(this.props.question)}
           >
             <Text style={styles.text} >
@@ -33,6 +33,7 @@ export default class extends PureComponent {
         const codeString = element.replace(REGEX_LANG, '')
         return (
           <SyntaxHighlighter
+            customStyle={{ width: '98%' }}
             key={key}
             language={language}
             style={dracula}
@@ -57,8 +58,7 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     alignItems: 'flex-start',
-    padding:8,
-    flex:1,
+    paddingHorizontal:4,
     marginVertical:6,
     marginHorizontal:12,
     borderRadius: 4,
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   text:{
-    fontSize: 16,
-    flex: 1
+    fontSize: 16
   }
 
 });

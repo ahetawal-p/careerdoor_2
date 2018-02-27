@@ -22,28 +22,42 @@ class Questions extends PureComponent {
   }
 
   _renderItem = ({ item }) => (
-    <Questioncard key={item.qId} question={item} onPress={this._onQuestionPress} />
+    <Questioncard question={item} onPress={this._onQuestionPress} />
     )
+
+  _renderFooter = () => {
+    if (this.props.isLoading && this.props.questions.length < this.props.totalCount) {
+      return (
+        <View style={styles.loader}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      )
+    }
+    return null
+  }
+
+  _loadMore = () => {
+      // see: https://github.com/facebook/react-native/issues/14015
+    if (!this.props.isLoading && !this.onEndReachedCalledDuringMomentum && this.props.questions.length < this.props.totalCount ) {
+      this.props.loadQuestions(this.props.pageNo + 1)
+      this.onEndReachedCalledDuringMomentum = true;
+    }
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        {
-          this.props.isLoading && this.props.questions.length === 0 ?
-            <View style={styles.loader}>
-              <ActivityIndicator animating size="large" />
-            </View>
-          :
-            <FlatList
-              data={this.props.questions}
-              renderItem={this._renderItem}
-              keyExtractor={item => item.qId}
-              ref={(ref) => { this._captureRef = ref }}
-              onEndReached={() => this.props.loadQuestions(this.props.pageNo + 1)}
-            />
-      }
+        <FlatList
+          data={this.props.questions}
+          renderItem={this._renderItem}
+          keyExtractor={item => item.qId}
+          ref={(ref) => { this._captureRef = ref }}
+          onEndReached={this._loadMore}
+          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+          ListFooterComponent={this._renderFooter}
+        />
       </View>
-    );
+    )
   }
 }
 
@@ -52,9 +66,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   loader: {
-    paddingVertical: 20,
-    borderTopWidth: 1,
-    borderColor: '#CED0CE'
+    paddingVertical: 20
   }
 });
 
@@ -62,7 +74,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   questions: state.Questions.questions,
   isLoading: state.Questions.isLoadingQuestions,
-  pageNo: state.Questions.pageNo
+  pageNo: state.Questions.pageNo,
+  totalCount: state.Companies.currentSelectedCompany.qCount
 });
 
 const mapDispatchToProps = dispatch => (
