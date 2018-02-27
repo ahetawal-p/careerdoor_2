@@ -8,7 +8,8 @@
     "lint-error": "eslint --quiet js/**",
     "lint": "eslint js/**",
     "reverse": "adb reverse tcp:8081 tcp:8081",
-    "shake": "adb shell input keyevent 82"
+    "shake": "adb shell input keyevent 82",
+    "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
   },
   "dependencies": {
     "react": "16.2.0",

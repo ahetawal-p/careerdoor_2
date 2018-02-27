@@ -21,11 +21,16 @@ class Questions extends PureComponent {
     console.log(question)
   }
 
+  _onQuestionBookmark = (question) => {
+    console.log(question)
+  }
+
   _renderItem = ({ item, index }) => (
     <Questioncard
       style={index % 2 === 0 ? { backgroundColor:'lightgray' } : { backgroundColor:'#f2f2f2' }}
       question={item}
       onPress={this._onQuestionPress}
+      onBookmarkPress={this._onQuestionBookmark}
     />
     )
 
