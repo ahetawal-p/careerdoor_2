@@ -15,16 +15,16 @@ class Questions(Item):
     class Meta:
         source = XPath("//ul[@id='question_preview']"
                        "//li[@class='question']")
-        route = {'/questions?companyurl=:url': '/page?pid=:url',
+        route = {
                  '/questions?companyurl=:url&page=:page':
-                 '/page?pid=:companyurl&n=:page'}
+                 '/page?pid=:url&n=:page'}
 
     def clean_qText(self, qText):
         qTextStr = []
         if qText:
             from lxml.html import tostring
             html = tostring(qText[0]).replace(b'\r', b'\n').replace(b'\n\n', b'\n')
-            print(html)
+            # print(html)
             soup = BeautifulSoup(html, 'html.parser')
             for child in soup.a.contents:
                 if child.select('code'):

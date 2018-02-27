@@ -3,7 +3,8 @@ import * as types from '../actions/types'
 const initialState = {
   questions: [],
   isLoadingQuestions: true,
-  isErrorLoadingQuestions: false
+  isErrorLoadingQuestions: false,
+  pageNo: 1
 }
 
 export default function reducer(state = initialState, action) {
@@ -17,9 +18,10 @@ export default function reducer(state = initialState, action) {
     case types.QUESTIONS_LOAD_COMPLETED:
       return {
         ...state,
-        questions: action.questions,
+        questions: [...state.questions, ...action.questions],
         isLoadingQuestions: false,
         isErrorLoadingQuestions: false,
+        pageNo: action.pageNo
       }
     case types.QUESTIONS_LOAD_ERROR:
       return {

@@ -14,7 +14,7 @@ class Questions extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
 
   componentDidMount() {
-    this.props.loadQuestions(0)
+    this.props.loadQuestions(1)
   }
 
   _onQuestionPress = (question) => {
@@ -29,7 +29,7 @@ class Questions extends PureComponent {
     return (
       <View style={styles.container}>
         {
-          this.props.isLoading ?
+          this.props.isLoading && this.props.questions.length === 0 ?
             <View style={styles.loader}>
               <ActivityIndicator animating size="large" />
             </View>
@@ -39,6 +39,7 @@ class Questions extends PureComponent {
               renderItem={this._renderItem}
               keyExtractor={item => item.qId}
               ref={(ref) => { this._captureRef = ref }}
+              onEndReached={() => this.props.loadQuestions(this.props.pageNo + 1)}
             />
       }
       </View>
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   questions: state.Questions.questions,
-  isLoading: state.Questions.isLoadingQuestions
+  isLoading: state.Questions.isLoadingQuestions,
+  pageNo: state.Questions.pageNo
 });
 
 const mapDispatchToProps = dispatch => (

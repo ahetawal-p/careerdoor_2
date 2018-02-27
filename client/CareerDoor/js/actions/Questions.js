@@ -13,7 +13,8 @@ export const loadQuestions = pageNo => async (dispatch, getState) => {
       setTimeout(() => {
         dispatch({
           type: types.QUESTIONS_LOAD_COMPLETED,
-          questions:allQuestions
+          questions:allQuestions,
+          pageNo
         })
       }, 1000);
 
