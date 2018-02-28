@@ -4,7 +4,8 @@ const initialState = {
   questions: [],
   isLoadingQuestions: true,
   isErrorLoadingQuestions: false,
-  pageNo: 0
+  pageNo: 0,
+  currentSelectedQuestion:{}
 }
 
 export default function reducer(state = initialState, action) {
@@ -34,6 +35,12 @@ export default function reducer(state = initialState, action) {
         isLoadingQuestions: false,
         isErrorLoadingQuestions: true
       }
+    case types.OPEN_QUESTION_DETAIL:
+      return {
+        ...state,
+        currentSelectedQuestion: action.currentSelectedQuestion
+      }
+
     default:
       return state
   }

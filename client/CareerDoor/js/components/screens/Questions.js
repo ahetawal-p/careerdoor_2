@@ -18,7 +18,7 @@ class Questions extends PureComponent {
   }
 
   _onQuestionPress = (question) => {
-    console.log(question)
+    this.props.openQuestionDetail(question)
   }
 
   _onQuestionBookmark = (question) => {

@@ -30,3 +30,10 @@ export const loadQuestions = pageNo => async (dispatch, getState) => {
     }
   })
 }
+
+export const openQuestionDetail = question => async (dispatch, getState) => {
+  dispatch({
+    type: types.OPEN_QUESTION_DETAIL,
+    currentSelectedQuestion: question
+  })
+}
