@@ -62,6 +62,7 @@ class Questions extends PureComponent {
           keyExtractor={item => item.qId}
           ref={(ref) => { this._captureRef = ref }}
           onEndReached={this._loadMore}
+          onEndReachedThreshold={5}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           ListFooterComponent={this._renderFooter}
         />

@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     borderColor:'gray'
   },
   tagNameText: {
-    textAlign:'center',
+    // textAlign:'center',
   },
 
   ansContainer:{

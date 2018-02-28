@@ -13,3 +13,4 @@ TODO
 - Lottie loading and splash indicators
 - Tag filtering or questions type filtering on Home screen
 - Offline support for single question and answer
+- Fix unicode strings

@@ -15,9 +15,9 @@ class Questions(Item):
     class Meta:
         source = XPath("//ul[@id='question_preview']"
                        "//li[@class='question']")
-        route = {
-                 '/questions?companyurl=:url&page=:page':
-                 '/page?pid=:url&n=:page'}
+        route = {'/questions?companyurl=:url&page=:page':
+                 '/page?pid=:url&n=:page'
+                 }
 
     def clean_qText(self, qText):
         qTextStr = []
@@ -37,3 +37,9 @@ class Questions(Item):
                 else:
                     qTextStr.append(child.text)
         return qTextStr
+
+    def clean_qTags(self, qTags):
+        if isinstance(qTags, list):
+            return qTags
+        else:
+            return [qTags]

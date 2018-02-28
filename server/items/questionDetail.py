@@ -1,9 +1,9 @@
 from toapi import Item, XPath, Css
-from bs4 import BeautifulSoup, element
+from bs4 import BeautifulSoup
 
 
 class QuestionDetail(Item):
-    __base_url__ = 'https://www.careercup.com/question?id=7528760'
+    __base_url__ = 'https://www.careercup.com'
 
     ansText = Css("div.commentBody", attr='html')
     netVote = XPath("//div[@class='votesNet']/text()")
@@ -12,18 +12,22 @@ class QuestionDetail(Item):
     class Meta:
         source = XPath("//div[@id='mainpagebody']"
                        "//div[@class='comment']")
-        # route = {'/question?id=:id':'/question?id=:id'}
-        route = {'/test':''}
+        route = {'/question?id=:id': '/question?id=:id'}
+        # route = {'/test': ''}
 
     def clean_ansText(self, ansText):
         qTextStr = []
         if ansText:
             from lxml.html import tostring
-            html = tostring(ansText[0]).replace(b'\r', b'\n').replace(b'\n\n', b'\n')
-            print(html)
+            html = tostring(ansText[0])\
+                .replace(b'\r', b'\n')\
+                .replace(b'\n\n', b'\n')
+            # print(html)
             soup = BeautifulSoup(html, 'html.parser')
             for child in soup.div.contents:
                 if child.name:
+                    if child.name == 'span' and child['class'][0] == 'author':
+                        continue
                     if child.select('code'):
                         if child.select('code')[0].pre['class']:
                             codeBlock = child.select('code')[0]
