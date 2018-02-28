@@ -5,7 +5,10 @@ const initialState = {
   isLoadingQuestions: true,
   isErrorLoadingQuestions: false,
   pageNo: 0,
-  currentSelectedQuestion:{}
+  currentSelectedQuestion:{},
+  isLoadingQuestionDetail: false,
+  isErrorLoadingQuestionDetail: false,
+  questionDetail:[]
 }
 
 export default function reducer(state = initialState, action) {
@@ -40,7 +43,25 @@ export default function reducer(state = initialState, action) {
         ...state,
         currentSelectedQuestion: action.currentSelectedQuestion
       }
-
+    case types.QUESTIONS_DETAIL_LOAD_IN_PROGRESS:
+      return {
+        ...state,
+        isLoadingQuestionDetail: true,
+        isErrorLoadingQuestionDetail: false
+      }
+    case types.QUESTIONS_DETAIL_LOAD_COMPLETED:
+      return {
+        ...state,
+        isLoadingQuestionDetail: false,
+        isErrorLoadingQuestionDetail: false,
+        questionDetail: action.questionDetail
+      }
+    case types.QUESTIONS_DETAIL_LOAD_ERROR:
+      return {
+        ...state,
+        isLoadingQuestionDetail: false,
+        isErrorLoadingQuestionDetail: true,
+      }
     default:
       return state
   }

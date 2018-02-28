@@ -37,3 +37,26 @@ export const openQuestionDetail = question => async (dispatch, getState) => {
     currentSelectedQuestion: question
   })
 }
+
+export const loadQuestionDetail = () => async (dispatch, getState) => {
+  dispatch({
+    type: types.QUESTIONS_DETAIL_LOAD_IN_PROGRESS
+  })
+  const selectedQuestion = getState().Questions.currentSelectedQuestion
+
+  Service.loadQuestionDetail(selectedQuestion.qId, (allDetails, error) => {
+    if (!error && allDetails) {
+      setTimeout(() => {
+        dispatch({
+          type: types.QUESTIONS_DETAIL_LOAD_COMPLETED,
+          questionDetail:allDetails
+        })
+      }, 1000);
+    } else {
+      dispatch({
+        type: types.QUESTIONS_DETAIL_LOAD_ERROR,
+        error
+      })
+    }
+  })
+}
