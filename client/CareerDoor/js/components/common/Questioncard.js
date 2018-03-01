@@ -146,17 +146,6 @@ export default class extends PureComponent {
     <View style={{ marginVertical:10, backgroundColor:'blue', height:12 }}  />
   )
 
-  _renderExtraDetails = () => (
-    <View style={styles.extraDetailContainer}>
-      <Text style={styles.extraDetailText}>
-        Answers:Test
-      </Text>
-      <Text style={styles.extraDetailText}>
-        Answers:Test1
-      </Text>
-    </View>
-  )
-
   render() {
     const {
       qText,
@@ -169,8 +158,6 @@ export default class extends PureComponent {
         {this._renderBookmarkIcon()}
 
         {this._renderBufferView()}
-
-        {this._renderExtraDetails()}
 
         {this._renderQuestionContent(qId, qText)}
 
@@ -286,15 +273,6 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     width:'100%',
     marginVertical:6
-  },
-  extraDetailContainer:{
-    margin:4,
-    paddingBottom: 4,
-  },
-  extraDetailText:{
-    fontSize: 12,
-    fontStyle: 'italic'
-  },
-
+  }
 
 });
