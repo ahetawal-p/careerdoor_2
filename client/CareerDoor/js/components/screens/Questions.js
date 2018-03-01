@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 
+
 class Questions extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
 
@@ -19,6 +20,11 @@ class Questions extends PureComponent {
 
   _onQuestionPress = (question) => {
     this.props.openQuestionDetail(question)
+  }
+
+  _onQuestionExternalLink = (question) => {
+    console.log(question)
+    this.props.openQuestionExternalLink(question)
   }
 
   _onQuestionBookmark = (question) => {
@@ -31,6 +37,7 @@ class Questions extends PureComponent {
       question={item}
       onPress={this._onQuestionPress}
       onBookmarkPress={this._onQuestionBookmark}
+      onExternalLinkPress={this._onQuestionExternalLink}
     />
     )
 

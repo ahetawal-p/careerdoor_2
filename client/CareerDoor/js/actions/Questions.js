@@ -1,5 +1,7 @@
+import { Linking } from 'react-native'
 import * as types from './types'
 import * as Service from './service'
+import { SOURCE_BASE_URL } from '../constants'
 
 export const loadQuestions = pageNo => async (dispatch, getState) => {
   dispatch({
@@ -59,4 +61,15 @@ export const loadQuestionDetail = () => async (dispatch, getState) => {
       })
     }
   })
+}
+
+export const openQuestionExternalLink = question => async (dispatch, getState) => {
+  const questionUrl = SOURCE_BASE_URL + question.qId
+  Linking.canOpenURL(questionUrl).then((supported) => {
+    if (!supported) {
+      console.log(`Cannot handle url: ${url}`);
+    } else {
+      return Linking.openURL(questionUrl);
+    }
+  }).catch(err => console.error('An error occurred', err));
 }

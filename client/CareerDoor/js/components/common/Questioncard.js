@@ -80,9 +80,24 @@ export default class extends PureComponent {
       </TouchableHighlight>
     )
 
+    const linkOutIcon =
+    (
+      <TouchableHighlight
+        underlayColor="red"
+        onPress={() => this.props.onExternalLinkPress(this.props.question)}
+      >
+        <Icon name="external-link" size={22} color={'blue'} />
+      </TouchableHighlight>
+    )
+
     return (
-      <View style={styles.bookmark}>
-        {bookmarkIcon}
+      <View style={styles.actionContainer}>
+        <View style={styles.linkOut}>
+          {linkOutIcon}
+        </View>
+        <View style={styles.bookmark}>
+          {bookmarkIcon}
+        </View>
       </View>
     )
   }
@@ -155,11 +170,12 @@ export default class extends PureComponent {
 
         {this._renderBufferView()}
 
+        {this._renderExtraDetails()}
+
         {this._renderQuestionContent(qId, qText)}
 
         {this._renderBottomContainer()}
 
-        {this._renderExtraDetails()}
 
       </View>
     )
@@ -171,11 +187,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  bookmark: {
+  actionContainer: {
+    position: 'absolute',
+    right:10,
+    top:5,
+    padding:8
+  },
+  linkOut: {
     position: 'absolute',
     right:0,
     top:0,
-    padding:8
+    padding:4
+  },
+  bookmark: {
+    position: 'absolute',
+    right:35,
+    top:0,
+    padding:4
   },
   bottomContainer:{
     flexDirection:'column',

@@ -23,12 +23,18 @@ class QuestionDetail extends PureComponent {
     console.log(question)
   }
 
+  _onQuestionExternalLink = (question) => {
+    console.log(question)
+    this.props.openQuestionExternalLink(question)
+  }
+
   _renderCurrentQuestion = currentQuestion => (
     <Questioncard
       style={{ backgroundColor:'lightgray' }}
       question={currentQuestion}
       onPress={() => {}}
       onBookmarkPress={this._onQuestionBookmark}
+      onExternalLinkPress={this._onQuestionExternalLink}
     />
   )
 
