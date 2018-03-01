@@ -8,6 +8,7 @@ class QuestionDetail(Item):
     ansText = Css("div.commentBody", attr='html')
     netVote = XPath("//div[@class='votesNet']/text()")
     totalVote = XPath("//div[@class='votesCount']/span/text()")
+    ansDate = XPath("//span[@class='author']/abbr/text()")
 
     class Meta:
         source = XPath("//div[@id='mainpagebody']"
