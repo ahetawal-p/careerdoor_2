@@ -11,11 +11,10 @@ import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 
 
-class Questions extends PureComponent {
-  static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
+class BookmarkQuestions extends PureComponent {
 
   componentDidMount() {
-    this.props.loadQuestions(1)
+    this.props.loadBookmarks()
   }
 
   _onQuestionPress = (question) => {
@@ -23,7 +22,6 @@ class Questions extends PureComponent {
   }
 
   _onQuestionExternalLink = (question) => {
-    console.log(question)
     this.props.openQuestionExternalLink(question)
   }
 
@@ -99,4 +97,4 @@ const mapDispatchToProps = dispatch => (
    bindActionCreators(Actions, dispatch)
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarkQuestions);

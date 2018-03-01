@@ -10,7 +10,8 @@ import { navMiddleware } from '../navigation/redux'
 const persistConfig = {
   key: 'rooter',
   storage,
-  blacklist: ['Navigation']
+  blacklist: ['Navigation'],
+  whitelist: ['Questions', 'Companies']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -28,7 +29,7 @@ export default function configureStore(onComplete) {
 
   // clear storage when app is reloaded.
   if (__DEV__) {
-    persistor.purge();
+  // persistor.purge();
   }
 
   // if (module.hot) {

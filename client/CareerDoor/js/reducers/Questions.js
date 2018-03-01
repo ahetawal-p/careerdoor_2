@@ -8,7 +8,8 @@ const initialState = {
   currentSelectedQuestion:{},
   isLoadingQuestionDetail: false,
   isErrorLoadingQuestionDetail: false,
-  questionDetail:[]
+  questionDetail:[],
+  bookmarkQuestions:[]
 }
 
 export default function reducer(state = initialState, action) {
@@ -62,6 +63,13 @@ export default function reducer(state = initialState, action) {
         isLoadingQuestionDetail: false,
         isErrorLoadingQuestionDetail: true,
       }
+    case types.BOOKMARK_QUESTIONS_ADD:
+    case types.BOOKMARK_QUESTIONS_REMOVE:
+      return {
+        ...state,
+        bookmarkQuestions:action.bookmarkQuestions
+      }
+
     default:
       return state
   }

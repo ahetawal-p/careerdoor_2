@@ -73,3 +73,50 @@ export const openQuestionExternalLink = question => async (dispatch, getState) =
     }
   }).catch(err => console.error('An error occurred', err));
 }
+
+
+export const loadBookmarks = () => async (dispatch, getState) => {
+  dispatch({
+    type: types.BOOKMARK_QUESTIONS_LOAD_IN_PROGRESS
+  })
+
+  const bookmarks = getState().Questions.bookmarkQuestions
+  if (bookmarks && bookmarks.lenght > 0) {
+    setTimeout(() => {
+      dispatch({
+        type: types.BOOKMARK_QUESTIONS_DETAIL_LOAD_COMPLETED,
+        bookmarkQuestions:bookmarks,
+      })
+    }, 1000);
+  } else {
+    dispatch({
+      type: types.BOOKMARK_QUESTIONS_DETAIL_LOAD_ERROR
+    })
+  }
+}
+
+export const updateBookmark = question => async (dispatch, getState) => {
+  const bookmarks = getState().Questions.bookmarkQuestions
+  let addedToBookmark = false
+  if (bookmarks && bookmarks.length > 0) {
+    addedToBookmark = bookmarks.find(element => element.qId === question.qId)
+  }
+  let bookmarkQuestions = bookmarks
+  if (!addedToBookmark) {
+    bookmarkQuestions.push(question)
+    setTimeout(() => {
+      dispatch({
+        type: types.BOOKMARK_QUESTIONS_ADD,
+        bookmarkQuestions
+      })
+    }, 1000);
+  } else {
+    bookmarkQuestions = bookmarks.filter(element => element.qId === question.qId)
+    setTimeout(() => {
+      dispatch({
+        type: types.BOOKMARK_QUESTIONS_REMOVE,
+        bookmarkQuestions
+      })
+    }, 1000);
+  }
+}
