@@ -1,4 +1,6 @@
 import { Linking } from 'react-native'
+import intersectionBy from 'lodash.intersectionby'
+import unionby from 'lodash.unionby'
 import * as types from './types'
 import * as Service from './service'
 import { SOURCE_BASE_URL } from '../constants'
@@ -9,13 +11,21 @@ export const loadQuestions = pageNo => async (dispatch, getState) => {
   })
 
   const selectedCompany = getState().Companies.currentSelectedCompany
+  const bookmarks = getState().Questions.bookmarkQuestions
 
   Service.loadQuestions(selectedCompany, pageNo, (allQuestions, error) => {
     if (!error && allQuestions) {
+      const commonArray = intersectionBy(bookmarks, allQuestions, 'qId')
+      const enrichedBookmarked = commonArray.map((element, index) => {
+        const currElement = element
+        currElement.isBookmarked = true
+        return currElement
+      })
+      const finalArray = unionby(enrichedBookmarked, allQuestions, 'qId')
       setTimeout(() => {
         dispatch({
           type: types.QUESTIONS_LOAD_COMPLETED,
-          questions:allQuestions,
+          questions:finalArray,
           pageNo
         })
       }, 1000);
@@ -75,48 +85,40 @@ export const openQuestionExternalLink = question => async (dispatch, getState) =
 }
 
 
-export const loadBookmarks = () => async (dispatch, getState) => {
-  dispatch({
-    type: types.BOOKMARK_QUESTIONS_LOAD_IN_PROGRESS
-  })
-
-  const bookmarks = getState().Questions.bookmarkQuestions
-  if (bookmarks && bookmarks.lenght > 0) {
-    setTimeout(() => {
-      dispatch({
-        type: types.BOOKMARK_QUESTIONS_DETAIL_LOAD_COMPLETED,
-        bookmarkQuestions:bookmarks,
-      })
-    }, 1000);
-  } else {
-    dispatch({
-      type: types.BOOKMARK_QUESTIONS_DETAIL_LOAD_ERROR
-    })
-  }
-}
-
 export const updateBookmark = question => async (dispatch, getState) => {
   const bookmarks = getState().Questions.bookmarkQuestions
-  let addedToBookmark = false
-  if (bookmarks && bookmarks.length > 0) {
-    addedToBookmark = bookmarks.find(element => element.qId === question.qId)
-  }
-  let bookmarkQuestions = bookmarks
-  if (!addedToBookmark) {
-    bookmarkQuestions.push(question)
-    setTimeout(() => {
-      dispatch({
-        type: types.BOOKMARK_QUESTIONS_ADD,
-        bookmarkQuestions
-      })
-    }, 1000);
+  const allQuestions = getState().Questions.questions
+  const currentQuestion = Object.assign({}, question)
+  const currentSelectedQuestion = getState().Questions.currentSelectedQuestion
+
+  const updateAllQuestions = allQuestions.map((element, index) => {
+    if (element.qId === currentQuestion.qId) {
+      return currentQuestion
+    }
+    return element
+  })
+
+  if (question.isBookmarked) {
+    currentQuestion.isBookmarked = false
+    const bookmarkQuestions = bookmarks.filter(element => element.qId !== currentQuestion.qId)
+    dispatch({
+      type: types.BOOKMARK_QUESTIONS_REMOVE,
+      bookmarkQuestions,
+      questions:updateAllQuestions
+    })
   } else {
-    bookmarkQuestions = bookmarks.filter(element => element.qId === question.qId)
-    setTimeout(() => {
-      dispatch({
-        type: types.BOOKMARK_QUESTIONS_REMOVE,
-        bookmarkQuestions
-      })
-    }, 1000);
+    currentQuestion.isBookmarked = true
+    dispatch({
+      type: types.BOOKMARK_QUESTIONS_ADD,
+      bookmarkQuestions: [...bookmarks, currentQuestion],
+      questions:updateAllQuestions,
+    })
+  }
+
+  if (currentSelectedQuestion && currentSelectedQuestion.qId === currentQuestion.qId) {
+    dispatch({
+      type: types.UPDATE_CURRENT_SELECTED_QUESTION,
+      currentSelectedQuestion: currentQuestion,
+    })
   }
 }

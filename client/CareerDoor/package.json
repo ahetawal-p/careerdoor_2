@@ -12,6 +12,8 @@
     "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
   },
   "dependencies": {
+    "lodash.intersectionby": "^4.7.0",
+    "lodash.unionby": "^4.8.0",
     "react": "16.2.0",
     "react-native": "0.52.2",
     "react-native-micro-animated-button": "0.0.15",
