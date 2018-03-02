@@ -75,8 +75,12 @@ export default class extends PureComponent {
       <TouchableHighlight
         underlayColor="red"
         onPress={() => this.props.onBookmarkPress(this.props.question)}
-      >
+      >{this.props.question.isBookmarked ?
+        <Icon name="bookmark" size={22} color={'yellow'} />
+          :
         <Icon name="bookmark-o" size={22} />
+      }
+
       </TouchableHighlight>
     )
 

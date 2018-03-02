@@ -7,9 +7,8 @@ Tab Navigator -
   - Settings
 
 TODO
-- Add app icons
-- Add My Library tab
-- Add bookmark icon on each question for it to show up on my Library
+- Fix navigation from bookmark list to questiondetail
+- Fix touchable highlighting on all screens
 - Error handling on network request failed
 - Lottie loading and splash indicators
 - Remove setTimeout test code

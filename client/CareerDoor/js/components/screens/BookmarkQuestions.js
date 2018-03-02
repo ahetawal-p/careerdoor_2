@@ -3,22 +3,21 @@ import {
   View,
   StyleSheet,
   ActivityIndicator,
+  Text,
   FlatList
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 
 
 class BookmarkQuestions extends PureComponent {
 
-  componentDidMount() {
-    this.props.loadBookmarks()
-  }
-
   _onQuestionPress = (question) => {
-    this.props.openQuestionDetail(question)
+     // TODO NEED TO FIX THIS NAVIGATION
+    // this.props.openQuestionDetail(question)
   }
 
   _onQuestionExternalLink = (question) => {
@@ -39,38 +38,27 @@ class BookmarkQuestions extends PureComponent {
     />
     )
 
-  _renderFooter = () => {
-    if (this.props.isLoading && this.props.questions.length < this.props.totalCount) {
-      return (
-        <View style={styles.loader}>
-          <ActivityIndicator animating size="large" />
-        </View>
-      )
-    }
-    return null
-  }
-
-  _loadMore = () => {
-      // see: https://github.com/facebook/react-native/issues/14015
-    if (!this.props.isLoading && !this.onEndReachedCalledDuringMomentum && this.props.questions.length < this.props.totalCount ) {
-      this.props.loadQuestions(this.props.pageNo + 1)
-      this.onEndReachedCalledDuringMomentum = true;
-    }
-  }
+  _renderEmptyView = () => (
+    <View style={{ flex:1, alignSelf: 'center', alignItems:'center', justifyContent:'center' }}>
+      <Icon name="list" size={32} color={'lightblue'} />
+      <Text style={{ padding:4, fontSize: 16, textAlign:'center' }}>No Bookmarks present</Text>
+    </View>
+    )
 
   render() {
     return (
       <View style={styles.container}>
-        <FlatList
-          data={this.props.questions}
-          renderItem={this._renderItem}
-          keyExtractor={item => item.qId}
-          ref={(ref) => { this._captureRef = ref }}
-          onEndReached={this._loadMore}
-          onEndReachedThreshold={5}
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          ListFooterComponent={this._renderFooter}
-        />
+        {
+          this.props.questions && this.props.questions.length > 0 ?
+            <FlatList
+              data={this.props.questions}
+              renderItem={this._renderItem}
+              keyExtractor={item => item.qId}
+              ref={(ref) => { this._captureRef = ref }}
+            />
+          :
+          this._renderEmptyView()
+        }
       </View>
     )
   }
@@ -87,10 +75,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-  questions: state.Questions.questions,
-  isLoading: state.Questions.isLoadingQuestions,
-  pageNo: state.Questions.pageNo,
-  totalCount: state.Companies.currentSelectedCompany.qCount
+  questions: state.Questions.bookmarkQuestions
 });
 
 const mapDispatchToProps = dispatch => (

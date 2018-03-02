@@ -20,11 +20,10 @@ class QuestionDetail extends PureComponent {
   }
 
   _onQuestionBookmark = (question) => {
-    console.log(question)
+    this.props.updateBookmark(question)
   }
 
   _onQuestionExternalLink = (question) => {
-    console.log(question)
     this.props.openQuestionExternalLink(question)
   }
 

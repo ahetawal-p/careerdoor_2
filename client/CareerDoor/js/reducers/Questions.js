@@ -31,7 +31,8 @@ export default function reducer(state = initialState, action) {
         questions: [...state.questions, ...action.questions],
         isLoadingQuestions: false,
         isErrorLoadingQuestions: false,
-        pageNo: action.pageNo
+        pageNo: action.pageNo,
+        currentSelectedQuestion: {}
       }
     case types.QUESTIONS_LOAD_ERROR:
       return {
@@ -40,6 +41,7 @@ export default function reducer(state = initialState, action) {
         isErrorLoadingQuestions: true
       }
     case types.OPEN_QUESTION_DETAIL:
+    case types.UPDATE_CURRENT_SELECTED_QUESTION:
       return {
         ...state,
         currentSelectedQuestion: action.currentSelectedQuestion
@@ -67,7 +69,8 @@ export default function reducer(state = initialState, action) {
     case types.BOOKMARK_QUESTIONS_REMOVE:
       return {
         ...state,
-        bookmarkQuestions:action.bookmarkQuestions
+        bookmarkQuestions:action.bookmarkQuestions,
+        questions:action.questions
       }
 
     default:
