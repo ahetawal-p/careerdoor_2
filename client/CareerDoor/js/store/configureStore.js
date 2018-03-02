@@ -18,6 +18,15 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default function configureStore(onComplete) {
   const logger = createLogger();
+
+
+// TODO ADD THIS for production level
+//   const middleware = [
+//   ... other middleware ...
+//   DEBUG && logger,
+// ].filter(Boolean);
+// const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
+
   const store = createStore(
         persistedReducer,
         applyMiddleware(thunk, navMiddleware, logger)
