@@ -22,7 +22,8 @@ class QuestionDetail(Item):
             from lxml.html import tostring
             html = tostring(ansText[0])\
                 .replace(b'\r', b'\n')\
-                .replace(b'\n\n', b'\n')
+                .replace(b'\n\n', b'\n')\
+                .replace(b'<br>', b'\n')
             # print(html)
             soup = BeautifulSoup(html, 'html.parser')
             for child in soup.div.contents:

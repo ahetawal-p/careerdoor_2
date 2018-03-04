@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 
@@ -33,7 +34,7 @@ class Questions extends PureComponent {
 
   _renderItem = ({ item, index }) => (
     <Questioncard
-      style={index % 2 === 0 ? { backgroundColor:'lightgray' } : { backgroundColor:'#f2f2f2' }}
+      style={index % 2 === 0 ? { backgroundColor: COLOR.lightBlue50 } : { backgroundColor:COLOR.lightBlue100 }}
       question={item}
       onPress={this._onQuestionPress}
       onBookmarkPress={this._onQuestionBookmark}
@@ -45,7 +46,7 @@ class Questions extends PureComponent {
     if (this.props.isLoading && this.props.questions.length < this.props.totalCount) {
       return (
         <View style={styles.loader}>
-          <ActivityIndicator animating size="large" />
+          <ActivityIndicator animating size="large" color={COLOR.white} />
         </View>
       )
     }
@@ -61,8 +62,9 @@ class Questions extends PureComponent {
   }
 
   render() {
+    const isLoadingFirstTime =  this.props.isLoading && this.props.questions.length < this.props.totalCount
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, isLoadingFirstTime ? { backgroundColor:COLOR.lightBlue600 } : null]}>
         <FlatList
           data={this.props.questions}
           renderItem={this._renderItem}

@@ -8,6 +8,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import SyntaxHighlighter from 'react-native-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/styles/hljs'
+import * as COLOR from '../../utils/colors'
 
 const REGEX_LANG = new RegExp('{{(.*)}}')
 
@@ -76,9 +77,9 @@ export default class extends PureComponent {
         underlayColor="red"
         onPress={() => this.props.onBookmarkPress(this.props.question)}
       >{this.props.question.isBookmarked ?
-        <Icon name="bookmark" size={22} color={'yellow'} />
+        <Icon name="bookmark" size={18} color={COLOR.yellow700} />
           :
-        <Icon name="bookmark-o" size={22} />
+        <Icon name="bookmark-o" size={18} />
       }
 
       </TouchableHighlight>
@@ -90,7 +91,7 @@ export default class extends PureComponent {
         underlayColor="red"
         onPress={() => this.props.onExternalLinkPress(this.props.question)}
       >
-        <Icon name="external-link" size={22} color={'blue'} />
+        <Icon name="external-link" size={18} color={COLOR.blue700} />
       </TouchableHighlight>
     )
 
@@ -147,7 +148,7 @@ export default class extends PureComponent {
   }
 
   _renderBufferView = () => (
-    <View style={{ marginVertical:10, backgroundColor:'blue', height:12 }}  />
+    <View style={{ marginVertical:10, backgroundColor:'transparent', height:12 }}  />
   )
 
   render() {
@@ -208,10 +209,10 @@ const styles = StyleSheet.create({
     flexDirection:'row',
   },
   infoText:{
-    fontSize: 14,
+    fontSize: 12,
     padding:4,
     textAlign:'center',
-    fontStyle: 'italic'
+    fontFamily: 'Roboto-Italic',
   },
 
   tagAnsContainer:{
@@ -228,14 +229,15 @@ const styles = StyleSheet.create({
 
   tag: {
     backgroundColor:'lightgray',
-    padding:6,
+    padding:4,
     margin:4,
     borderRadius:4,
-    borderWidth:1,
+    borderWidth:StyleSheet.hairlineWidth,
     borderColor:'gray'
   },
   tagNameText: {
-    // textAlign:'center',
+    fontSize: 10,
+    fontFamily: 'Roboto-LightItalic',
   },
 
   ansContainer:{
@@ -244,10 +246,10 @@ const styles = StyleSheet.create({
     flexWrap:'wrap',
     flexDirection:'column',
     backgroundColor:'#0076a3',
-    paddingVertical:4,
+    paddingVertical:2,
     paddingHorizontal:1,
     borderRadius:4,
-    borderWidth:1,
+    borderWidth:StyleSheet.hairlineWidth,
     borderColor:'white',
     marginBottom:4
   },
@@ -255,8 +257,8 @@ const styles = StyleSheet.create({
   ansText:{
     textAlign:'center',
     color:'white',
-    fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 12,
+    fontFamily: 'Roboto-Italic',
   },
 
   itemStyle: {
@@ -264,13 +266,14 @@ const styles = StyleSheet.create({
     paddingHorizontal:4,
     marginVertical:6,
     marginHorizontal:12,
-    borderRadius: 4,
-    borderColor: 'lightgray',
+    borderRadius: 6,
+    borderColor: COLOR.lightBlue300,
     borderWidth: 1,
   },
   text:{
     fontSize: 16,
-    flex:1
+    flex:1,
+    fontFamily: 'Roboto-Regular',
   },
 
   textNodeContainer: {

@@ -2,12 +2,15 @@ import React,  { PureComponent } from 'react'
 import { Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput, Image } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Button from 'react-native-micro-animated-button'
+import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Companies'
 import LoadingIndicator from '../common/LoadingIndicator'
 
 class Home extends PureComponent {
-  static navigationOptions = ({ navigation, screenProps }) => ({ title: screenProps.title });
+  static navigationOptions = ({ navigation, screenProps }) => (
+    { title: screenProps.title,
+    }
+  );
 
   constructor(props, context) {
     super(props, context);
@@ -39,7 +42,7 @@ class Home extends PureComponent {
   }
   _renderItem = ({ item, index }) => {
     const label = `${item.companyName} (${item.qCount})`
-    const customStyle = index % 2 === 0 ? { backgroundColor:'lightgray' } : { backgroundColor:'#f2f2f2' }
+    const customStyle = index % 2 === 0 ? { backgroundColor: COLOR.lightBlue50 } : { backgroundColor:COLOR.lightBlue100 }
     return  (
       <TouchableHighlight
         underlayColor="gray"
@@ -48,7 +51,7 @@ class Home extends PureComponent {
       >
         <View style={styles.itemStyle}>
           <Image
-            style={{ width: 50, height: 50, margin:4 }}
+            style={{ width: 40, height: 40, margin:4 }}
             source={{ uri:item.qLogo, cache:'force-cache' }}
           />
           <Text style={styles.text} numberOfLines={3}>
@@ -69,7 +72,7 @@ class Home extends PureComponent {
   }
 
   _getItemLayout = (data, index) =>
-    ({ length: 78, offset: (78 * index), index })
+    ({ length: 68, offset: (68 * index), index })
 
   render() {
     const filterRegex = new RegExp(String(this.state.filterText), 'i')
@@ -119,7 +122,8 @@ class Home extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: COLOR.white
   },
   contentContainer: {
     paddingVertical: 8,
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
     padding:8
   },
   itemStyle: {
-    height:70,
+    height:60,
     flexDirection:'row',
     alignItems: 'center',
   },
@@ -144,21 +148,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flex: 1,
     overflow: 'hidden',
-    borderColor: 'lightgray',
-    borderWidth: 1,
+    // borderColor: COLOR.blue600,
+    // borderWidth: StyleSheet.hairlineWidth,
   },
 
   searchTextInput: {
-    borderColor: '#cccccc',
+    borderColor: 'lightgray',
     borderRadius: 5,
     borderWidth: 1,
     height: 40,
     padding:4,
-    backgroundColor: 'rgb(239, 239, 244)',
+    color: COLOR.lightBlue400,
+    fontFamily: 'Roboto-Regular',
     fontSize: 14,
   },
   text:{
     fontSize: 18,
+    fontFamily: 'Roboto-Regular',
     // width: 0, /* Special fix for wraping text */
     flex: 1,
 

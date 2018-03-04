@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 import QuestionDetailcard from '../common/QuestionDetailcard'
@@ -29,7 +30,7 @@ class QuestionDetail extends PureComponent {
 
   _renderCurrentQuestion = currentQuestion => (
     <Questioncard
-      style={{ backgroundColor:'lightgray' }}
+      style={{ backgroundColor:COLOR.lightBlue50 }}
       question={currentQuestion}
       onPress={() => {}}
       onBookmarkPress={this._onQuestionBookmark}
@@ -43,7 +44,7 @@ class QuestionDetail extends PureComponent {
       return (
         <QuestionDetailcard
           key={key}
-          style={{ backgroundColor:'lightgray' }}
+          style={{ backgroundColor:COLOR.white }}
           questionDetail={element}
         />
       )
@@ -67,8 +68,8 @@ class QuestionDetail extends PureComponent {
     } = this.props
 
     return (
-      <View style={styles.container}>
-        { isLoading ? (<ActivityIndicator animating size="large" />)
+      <View style={[styles.container, isLoading ? { backgroundColor:COLOR.lightBlue600 } : null]}>
+        { isLoading ? (<ActivityIndicator animating size="large" color={COLOR.white} />)
         :
         (<ScrollView>
           {this._renderCurrentQuestion(currentQuestion)}
@@ -84,17 +85,18 @@ class QuestionDetail extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor: 'white'
   },
   headerContainer: {
     margin:12,
     paddingBottom: 4,
     borderBottomWidth:StyleSheet.hairlineWidth,
-    borderBottomColor:'lightgray'
+    borderBottomColor:COLOR.blue200
   },
   headerText:{
-    fontSize: 18,
-    fontStyle: 'italic'
+    fontSize: 22,
+    fontFamily: 'Roboto-Italic'
   }
 
 });

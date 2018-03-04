@@ -2,22 +2,20 @@ import React,  { PureComponent } from 'react'
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
   Text,
   FlatList
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
-
+import * as COLOR from '../../utils/colors'
 
 class BookmarkQuestions extends PureComponent {
 
   _onQuestionPress = (question) => {
-     // TODO NEED TO FIX THIS NAVIGATION
-    // this.props.openQuestionDetail(question)
+    this.props.openQuestionDetail(question)
   }
 
   _onQuestionExternalLink = (question) => {
@@ -30,7 +28,7 @@ class BookmarkQuestions extends PureComponent {
 
   _renderItem = ({ item, index }) => (
     <Questioncard
-      style={index % 2 === 0 ? { backgroundColor:'lightgray' } : { backgroundColor:'#f2f2f2' }}
+      style={{ backgroundColor:COLOR.yellow50 }}
       question={item}
       onPress={this._onQuestionPress}
       onBookmarkPress={this._onQuestionBookmark}
@@ -40,8 +38,8 @@ class BookmarkQuestions extends PureComponent {
 
   _renderEmptyView = () => (
     <View style={{ flex:1, alignSelf: 'center', alignItems:'center', justifyContent:'center' }}>
-      <Icon name="list" size={32} color={'lightblue'} />
-      <Text style={{ padding:4, fontSize: 16, textAlign:'center' }}>No Bookmarks present</Text>
+      <Ionicons name={'ios-book-outline'} size={32} color={COLOR.blue700} />
+      <Text style={styles.bookmarkMsgTxt}>No Bookmarks present</Text>
     </View>
     )
 
@@ -66,10 +64,15 @@ class BookmarkQuestions extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:COLOR.white
   },
-  loader: {
-    paddingVertical: 20
+  bookmarkMsgTxt:{
+    padding:2,
+    fontSize: 16,
+    textAlign:'center',
+    color: COLOR.lightBlue400,
+    fontFamily: 'Roboto-Regular',
   }
 });
 

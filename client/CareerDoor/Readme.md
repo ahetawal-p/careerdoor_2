@@ -7,7 +7,6 @@ Tab Navigator -
   - Settings
 
 TODO
-- Fix navigation from bookmark list to questiondetail
 - Fix touchable highlighting on all screens
 - Error handling on network request failed
 - Lottie loading and splash indicators

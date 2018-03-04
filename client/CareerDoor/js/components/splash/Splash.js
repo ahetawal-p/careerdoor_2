@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native'
+import * as COLOR from '../../utils/colors'
 
 export default class Splash extends Component {
   render() {
@@ -9,6 +10,7 @@ export default class Splash extends Component {
           animating={true}
           style={[{ height: 80 }]}
           size="large"
+          color={COLOR.white}
         />
       </View>
     )
@@ -19,7 +21,7 @@ export default class Splash extends Component {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: COLOR.lightBlue600,
     justifyContent:'center'
   },
 

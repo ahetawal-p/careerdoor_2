@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import SyntaxHighlighter from 'react-native-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/styles/hljs'
+import * as COLOR from '../../utils/colors'
 
 const REGEX_LANG = new RegExp('{{(.*)}}')
 
@@ -27,6 +28,7 @@ export default class extends PureComponent {
         const codeString = element.replace(REGEX_LANG, '')
         return (
           <SyntaxHighlighter
+            customStyle={{ width: '98%' }}
             key={key}
             language={language}
             style={dracula}
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
   infoText:{
     fontSize: 10,
     textAlign:'center',
-    fontStyle: 'italic'
+    fontFamily: 'Roboto-Italic',
   },
   voteContainer:{
     alignSelf:'flex-end',
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
   voteText:{
     textAlign:'center',
     color:'white',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
     fontSize: 12
   },
   voteTotalText:{
@@ -131,12 +133,13 @@ const styles = StyleSheet.create({
     marginVertical:6,
     marginHorizontal:12,
     borderRadius: 4,
-    borderColor: 'lightgray',
-    borderWidth: 1,
+    borderColor: COLOR.lightBlue300,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   text:{
     fontSize: 16,
-    flex:1
+    flex:1,
+    fontFamily: 'Roboto-Regular',
   },
   textNodeContainer: {
     flexDirection:'row',

@@ -1,39 +1,18 @@
 import React, { Component } from 'react'
 import {
-  Platform,
   Dimensions,
   Animated,
   ActivityIndicator,
   View
 } from 'react-native'
-
-
-const defaultColors =
-  Platform.OS === 'ios'
-    ? {
-      blue: '#007aff',
-      gray: '#d8d8d8',
-      green: '#4cd964',
-      red: '#ff3b30',
-      white: '#ffffff',
-      black: '#000000'
-    }
-    : {
-      blue: '#4285f4',
-      gray: '#d8d8d8',
-      green: '#0f9d58',
-      red: '#db4437',
-      white: '#ffffff',
-      black: '#000000'
-    }
-
+import * as COLOR from '../../utils/colors'
 
 export default class extends Component {
 
   static defaultProps = {
-    backgroundColor: defaultColors.white,
-    foregroundColor: defaultColors.blue,
-    textColor: defaultColors.black
+    backgroundColor: COLOR.white,
+    foregroundColor: COLOR.blue600,
+    textColor: COLOR.black
   };
 
   componentWillReceiveProps(nextProps) {
@@ -124,5 +103,6 @@ const styles = {
   mLoadMoreText:{
     fontSize: 12,
     textAlign: 'center',
+    fontFamily: 'Roboto-Regular',
   }
 }
