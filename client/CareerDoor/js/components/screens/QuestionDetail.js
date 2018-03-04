@@ -89,14 +89,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   headerContainer: {
-    margin:12,
+    margin:16,
     paddingBottom: 4,
-    borderBottomWidth:StyleSheet.hairlineWidth,
+    borderBottomWidth:1,
     borderBottomColor:COLOR.blue200
   },
   headerText:{
-    fontSize: 22,
-    fontFamily: 'Roboto-Italic'
+    fontSize: 24,
+    fontFamily: 'Roboto-Italic',
+    color: COLOR.lightBlue800
   }
 
 });
