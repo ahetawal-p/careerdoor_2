@@ -5,10 +5,13 @@ import { connect } from 'react-redux'
 import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Companies'
 import LoadingIndicator from '../common/LoadingIndicator'
+import HeaderFilter from '../common/HeaderFilter'
 
 class Home extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => (
-    { title: screenProps.title,
+    {
+      title: screenProps.title,
+      headerTitle: <HeaderFilter />
     }
   );
 
