@@ -21,7 +21,7 @@ export default class extends PureComponent {
       if (!element.startsWith('{{')) {
         return (
           <TouchableHighlight
-            underlayColor="red"
+            underlayColor={COLOR.grey100}
             key={key}
             onPress={() => this.props.onPress(this.props.question)}
           >
@@ -74,7 +74,7 @@ export default class extends PureComponent {
     const bookmarkIcon =
     (
       <TouchableHighlight
-        underlayColor="red"
+        underlayColor={COLOR.grey100}
         onPress={() => this.props.onBookmarkPress(this.props.question)}
       >{this.props.question.isBookmarked ?
         <Icon name="bookmark" size={18} color={COLOR.yellow700} />
@@ -88,7 +88,7 @@ export default class extends PureComponent {
     const linkOutIcon =
     (
       <TouchableHighlight
-        underlayColor="red"
+        underlayColor={COLOR.grey100}
         onPress={() => this.props.onExternalLinkPress(this.props.question)}
       >
         <Icon name="external-link" size={18} color={COLOR.blue700} />
@@ -129,7 +129,7 @@ export default class extends PureComponent {
 
     return (
       <TouchableHighlight
-        underlayColor="red"
+        underlayColor={COLOR.grey100}
         style={{ flex:1, width:'100%' }}
         onPress={() => this.props.onPress(this.props.question)}
       >

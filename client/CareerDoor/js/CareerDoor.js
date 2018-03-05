@@ -21,9 +21,11 @@ const HomeStack = StackNavigator({
 },{
   navigationOptions:{
     headerStyle: {
-      backgroundColor: COLOR.lightBlue500,
+      // backgroundColor: COLOR.lightBlue500,
+     // backgroundColor: COLOR.yellow50,
     },
-    headerTintColor: '#fff',
+    // headerTintColor: '#fff',
+    // headerTintColor: COLOR.lightBlue600,
     headerTitleStyle: {
       fontFamily: 'Roboto-Bold',
     }
@@ -32,7 +34,19 @@ const HomeStack = StackNavigator({
 
 const SettingsStack = StackNavigator({
   Settings: { screen: Settings }
-})
+},
+  {
+    navigationOptions:{
+      headerStyle: {
+        backgroundColor: COLOR.lightBlue500,
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontFamily: 'Roboto-Bold',
+      }
+    }
+  })
+
 
 const LibraryStack = StackNavigator({
   MyBookmarks: { screen: BookmarkQuestions, navigationOptions: { title: 'Bookmarks' } },
@@ -41,9 +55,9 @@ const LibraryStack = StackNavigator({
   {
     navigationOptions:{
       headerStyle: {
-        // backgroundColor: COLOR.yellow50,
+        // backgroundColor: COLOR.lightBlue500,
       },
-      headerTintColor: COLOR.lightBlue400,
+     // headerTintColor: COLOR.white,
       headerTitleStyle: {
         fontFamily: 'Roboto-Bold',
       }
@@ -58,7 +72,7 @@ const tabBarConfiguration = {
       if (routeName === 'Home') {
         iconName = `ios-home${focused ? '' : '-outline'}`
       } else if (routeName === 'Settings') {
-        iconName = `ios-options${focused ? '' : '-outline'}`
+        iconName = `ios-information-circle${focused ? '' : '-outline'}`
       } else if (routeName === 'MyLibrary') {
         iconName = `ios-book${focused ? '' : '-outline'}`
       }
@@ -67,13 +81,13 @@ const tabBarConfiguration = {
   }),
   tabBarOptions:{
     // tint color is passed to text and icons (if enabled) on the tab bar
-    activeTintColor: COLOR.blue700,
+    activeTintColor: COLOR.blue600,
     inactiveTintColor: 'black',
     // background color is for the tab component
     // activeBackgroundColor: COLOR.blue100,
     // inactiveBackgroundColor: 'white',
     labelStyle:{
-      fontFamily: 'Roboto-Italic',
+      fontFamily: 'Roboto-Medium',
     },
     style: {
       backgroundColor: 'white',
@@ -84,7 +98,7 @@ const tabBarConfiguration = {
 export const AppNavigator = TabNavigator({
   Home: { screen: HomeStack, navigationOptions: { title: 'Home' } },
   MyLibrary: { screen: LibraryStack, navigationOptions: { title: 'My Library' } },
-  Settings: { screen: SettingsStack }
+  Settings: { screen: SettingsStack, navigationOptions: { title: 'About' } }
 
 }, tabBarConfiguration)
 

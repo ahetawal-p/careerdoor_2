@@ -24,7 +24,6 @@ class Questions extends PureComponent {
   }
 
   _onQuestionExternalLink = (question) => {
-    console.log(question)
     this.props.openQuestionExternalLink(question)
   }
 

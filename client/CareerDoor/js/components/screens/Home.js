@@ -45,7 +45,7 @@ class Home extends PureComponent {
     const customStyle = index % 2 === 0 ? { backgroundColor: COLOR.lightBlue50 } : { backgroundColor:COLOR.lightBlue100 }
     return  (
       <TouchableHighlight
-        underlayColor="gray"
+        underlayColor="lightgray"
         onPress={() => this._onCompanyPress(item)}
         style={[styles.card, customStyle]}
       >

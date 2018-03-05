@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     padding:2,
     fontSize: 16,
     textAlign:'center',
-    color: COLOR.lightBlue400,
+    color: COLOR.blue700,
     fontFamily: 'Roboto-Regular',
   }
 });
