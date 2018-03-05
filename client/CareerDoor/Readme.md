@@ -7,10 +7,12 @@ Tab Navigator -
   - Settings
 
 TODO
-- Fix touchable highlighting on all screens
+- Add topic filter on home screen
 - Error handling on network request failed
 - Lottie loading and splash indicators
 - Remove setTimeout test code
+- Revisit ioS Launch screen image
+
 
 Nice to haves
 - Add PTR once server supports
