@@ -22,6 +22,7 @@
     "react": "16.2.0",
     "react-native": "0.52.2",
     "react-native-micro-animated-button": "0.0.15",
+    "react-native-modal-dropdown": "^0.6.1",
     "react-native-syntax-highlighter": "^2.0.0",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.0.0-beta.30",
