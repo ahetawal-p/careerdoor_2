@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { bindActionCreators } from 'redux'
 import * as COLOR from './utils/colors'
 import { addListener } from './navigation/redux'
 import Home from './components/screens/Home'
@@ -9,6 +10,7 @@ import Settings from './components/screens/Settings'
 import QuestionDetail from './components/screens/QuestionDetail'
 import Questions from './components/screens/Questions'
 import BookmarkQuestions from './components/screens/BookmarkQuestions'
+import * as Actions from './actions/Companies'
 
 /**
 TODO: FIX ANDROID BACK BUTTON
@@ -104,18 +106,30 @@ export const AppNavigator = TabNavigator({
 
 class CareerDoor extends React.Component {
 
+  componentDidMount() {
+    this.props.loadCompanies()
+  }
+
+  _onFilterSelect =(value) => {
+    console.log(value)
+  }
   render() {
     const navigation = addNavigationHelpers({
       dispatch: this.props.dispatch,
       state: this.props.nav,
       addListener,
     });
+    const filterProps = {
+      filterTitle : 'Companies',
+      filterOptions: ['Companies','Topics'],
+      filterOnSelect: this._onFilterSelect
+    }
 
     return (
       <AppNavigator
         navigation={navigation}
         // all these props get passed to all child screens from here
-        screenProps={{ title: 'Companies' }}
+        screenProps={{ title: 'Companies', filterProps }}
       />
     );
   }
@@ -125,4 +139,8 @@ const mapStateToProps = state => ({
   nav: state.Navigation
 });
 
-export default connect(mapStateToProps)(CareerDoor);
+const mapDispatchToProps = dispatch => (
+   Object.assign({ dispatch }, bindActionCreators(Actions, dispatch))
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CareerDoor);

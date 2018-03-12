@@ -11,17 +11,18 @@ export default class HeaderFilter extends Component {
   }
 
   render() {
+    const { filterTitle, filterOptions, filterOnSelect } = this.props.options
     return (
       <View style={styles.container}>
         <ModalDropdown
           style={styles.filter}
           dropdownStyle={styles.dropdown}
           dropdownTextStyle={styles.dropdown_text}
-          options={['Companies', 'Topics']}
-          onSelect={(idx, value) => this._onSelect(idx, value)}
+          options={filterOptions}
+          onSelect={(idx, value) => filterOnSelect(value)}
         >
           <View style={styles.filterContainer}>
-            <Text style={styles.filterText}>Companies</Text>
+            <Text style={styles.filterText}>{filterTitle}</Text>
             <Icon name="chevron-down" size={12} color={COLOR.black} />
           </View>
 
