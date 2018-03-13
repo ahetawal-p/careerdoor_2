@@ -6,14 +6,26 @@ import * as Service from './service'
 import { SOURCE_BASE_URL } from '../constants'
 
 export const loadQuestions = pageNo => async (dispatch, getState) => {
-  dispatch({
-    type: types.QUESTIONS_LOAD_IN_PROGRESS
-  })
+  let qUrl = ''
+  let qCount = 0
 
-  const selectedCompany = getState().Companies.currentSelectedCompany
+  // lookup current filter state for the correct qUrl in case from topics
+  const selectedFilter = getState().HomeFilter.currentSelectedFilter
+  if (selectedFilter === 'Topics') {
+    qUrl = getState().Topics.currentSelectedTopic.qUrl
+    qCount = getState().Topics.currentSelectedTopic.qCount
+  } else if (selectedFilter === 'Companies') {
+    qUrl = getState().Companies.currentSelectedCompany.qUrl
+    qCount = getState().Companies.currentSelectedCompany.qCount
+  }
+
+  dispatch({
+    type: types.QUESTIONS_LOAD_IN_PROGRESS,
+    totalQCount: qCount
+  })
   const bookmarks = getState().Questions.bookmarkQuestions
 
-  Service.loadQuestions(selectedCompany, pageNo, (allQuestions, error) => {
+  Service.loadQuestions(qUrl, pageNo, (allQuestions, error) => {
     if (!error && allQuestions) {
       const commonArray = intersectionBy(bookmarks, allQuestions, 'qId')
       const enrichedBookmarked = commonArray.map((element, index) => {

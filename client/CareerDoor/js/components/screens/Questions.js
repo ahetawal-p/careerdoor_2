@@ -93,7 +93,7 @@ const mapStateToProps = state => ({
   questions: state.Questions.questions,
   isLoading: state.Questions.isLoadingQuestions,
   pageNo: state.Questions.pageNo,
-  totalCount: state.Companies.currentSelectedCompany.qCount
+  totalCount: state.Questions.totalQCount
 });
 
 const mapDispatchToProps = dispatch => (

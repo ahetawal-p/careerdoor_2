@@ -11,7 +11,7 @@ const persistConfig = {
   key: 'rooter',
   storage,
   blacklist: ['Navigation'],
-  whitelist: ['Questions', 'Companies']
+  whitelist: ['Questions', 'Companies', 'Topics', 'HomeFilter']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

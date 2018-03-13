@@ -10,7 +10,7 @@ import Settings from './components/screens/Settings'
 import QuestionDetail from './components/screens/QuestionDetail'
 import Questions from './components/screens/Questions'
 import BookmarkQuestions from './components/screens/BookmarkQuestions'
-import * as Actions from './actions/Companies'
+import * as Actions from './actions/Filter'
 
 /**
 TODO: FIX ANDROID BACK BUTTON
@@ -107,21 +107,24 @@ export const AppNavigator = TabNavigator({
 class CareerDoor extends React.Component {
 
   componentDidMount() {
-    this.props.loadCompanies()
+    this.props.loadFilter()
   }
 
   _onFilterSelect =(value) => {
-    console.log(value)
+    this.props.onFilterUpdate(value)
   }
+
   render() {
     const navigation = addNavigationHelpers({
       dispatch: this.props.dispatch,
       state: this.props.nav,
       addListener,
     });
+
+    const { currentSelectedFilter, filterOptions } = this.props.filter
     const filterProps = {
-      filterTitle : 'Companies',
-      filterOptions: ['Companies','Topics'],
+      filterTitle : currentSelectedFilter,
+      filterOptions,
       filterOnSelect: this._onFilterSelect
     }
 
@@ -129,14 +132,15 @@ class CareerDoor extends React.Component {
       <AppNavigator
         navigation={navigation}
         // all these props get passed to all child screens from here
-        screenProps={{ title: 'Companies', filterProps }}
+        screenProps={{ title: currentSelectedFilter, filterProps }}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  nav: state.Navigation
+  nav: state.Navigation,
+  filter: state.HomeFilter
 });
 
 const mapDispatchToProps = dispatch => (

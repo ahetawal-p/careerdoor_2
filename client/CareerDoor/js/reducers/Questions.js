@@ -2,6 +2,7 @@ import * as types from '../actions/types'
 
 const initialState = {
   questions: [],
+  totalQCount:0,
   isLoadingQuestions: true,
   isErrorLoadingQuestions: false,
   pageNo: 0,
@@ -17,13 +18,15 @@ export default function reducer(state = initialState, action) {
     case types.OPEN_QUESTIONS:
       return {
         ...state,
-        questions: []
+        questions: [],
+        totalQCount:0
       }
     case types.QUESTIONS_LOAD_IN_PROGRESS:
       return {
         ...state,
         isLoadingQuestions: true,
-        isErrorLoadingQuestions: false
+        isErrorLoadingQuestions: false,
+        totalQCount:action.totalQCount
       }
     case types.QUESTIONS_LOAD_COMPLETED:
       return {

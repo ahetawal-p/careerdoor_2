@@ -15,7 +15,7 @@ class Questions(Item):
     class Meta:
         source = XPath("//ul[@id='question_preview']"
                        "//li[@class='question']")
-        route = {'/questions?companyurl=:url&page=:page':
+        route = {'/questions?pid=:url&page=:page':
                  '/page?pid=:url&n=:page'
                  }
 
