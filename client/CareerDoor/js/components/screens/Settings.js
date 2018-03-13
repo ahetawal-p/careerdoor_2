@@ -7,12 +7,11 @@ import {
     Linking,
     Platform
 } from 'react-native'
+import { SUPPORT_EMAIL, APP_VERSION, ANDROID_RATE_APP, IOS_RATE_APP } from 'react-native-dotenv'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as COLOR from '../../utils/colors'
 
-const EMAIL_LINK = 'mailto:careerdoor.user@gmail.com&subject=CareerDoor Feedback&body=Version 1.0.0'
-const ANDROID_RATE_APP = 'market://details?id=myandroidappid'
-const IOS_RATE_APP = 'itms-apps://itunes.apple.com/us/app/myandroidappid?mt=8'
+const EMAIL_LINK = `mailto:${SUPPORT_EMAIL}&subject=CareerDoor Feedback&body=Version ${APP_VERSION}`
 
 const openURL = (url) => {
   Linking.canOpenURL(url).then((supported) => {
@@ -46,7 +45,7 @@ export default class Settings extends React.Component {
           <View style={styles.rowContainer}>
             <View style={styles.row}>
               <Text style={styles.rowText}>Version</Text>
-              <Text style={styles.rowText}>1.0.0</Text>
+              <Text style={styles.rowText}>{APP_VERSION}</Text>
             </View>
           </View>
         </View>

@@ -1,7 +1,9 @@
+import { SERVER_URL } from 'react-native-dotenv'
+
 export async function loadCompanies(callback) {
   try {
     const response = await fetch(
-      'http://127.0.0.1:5000/companies'
+      `${SERVER_URL}/companies`
     );
     const responseJson = await response.json();
     callback(responseJson.Companies, null)
@@ -14,7 +16,7 @@ export async function loadCompanies(callback) {
 export async function loadTopics(callback) {
   try {
     const response = await fetch(
-      'http://127.0.0.1:5000/topics'
+      `${SERVER_URL}/topics`
     );
     const responseJson = await response.json();
     callback(responseJson.Topics, null)
@@ -27,7 +29,7 @@ export async function loadTopics(callback) {
 export async function loadQuestions(qUrl, pageNo, callback) {
   try {
     const response = await fetch(
-        `http://127.0.0.1:5000/questions?pid=${qUrl}&page=${pageNo}`
+        `${SERVER_URL}/questions?pid=${qUrl}&page=${pageNo}`
       );
     const responseJson = await response.json();
     callback(responseJson.Questions, null)
@@ -41,7 +43,7 @@ export async function loadQuestionDetail(questionId, callback) {
   try {
     console.log(questionId)
     const response = await fetch(
-        `http://127.0.0.1:5000${questionId}`
+        `${SERVER_URL}${questionId}`
       );
     const responseJson = await response.json();
     callback(responseJson.QuestionDetail, null)
