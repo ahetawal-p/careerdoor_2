@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import rootReducer from '../reducers'
 import { navMiddleware } from '../navigation/redux'
 
@@ -17,19 +17,15 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default function configureStore(onComplete) {
-  const logger = createLogger();
-
-
-// TODO ADD THIS for production level
-//   const middleware = [
-//   ... other middleware ...
-//   DEBUG && logger,
-// ].filter(Boolean);
-// const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
+  const middleware = [
+    thunk,
+    navMiddleware,
+    __DEV__ && createLogger(),
+  ].filter(Boolean)
 
   const store = createStore(
         persistedReducer,
-        applyMiddleware(thunk, navMiddleware, logger)
+        applyMiddleware(...middleware)
     )
   const persistor = persistStore(store, null, () => {
     if (onComplete) {
