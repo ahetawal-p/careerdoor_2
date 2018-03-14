@@ -12,6 +12,7 @@ import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 import QuestionDetailcard from '../common/QuestionDetailcard'
+import RetryView from '../common/RetryView'
 
 class QuestionDetail extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
@@ -60,22 +61,37 @@ class QuestionDetail extends PureComponent {
     </View>
   )
 
+  _onRetry = () => {
+    this.props.loadQuestionDetail()
+  }
+
   render() {
     const {
       isLoading,
       questionDetail,
-      currentQuestion
+      currentQuestion,
+      isErrorLoadingQuestionDetail
     } = this.props
 
     return (
       <View style={[styles.container, isLoading ? { backgroundColor:COLOR.lightBlue600 } : null]}>
-        { isLoading ? (<ActivityIndicator animating size="large" color={COLOR.white} />)
-        :
-        (<ScrollView>
-          {this._renderCurrentQuestion(currentQuestion)}
-          {this._renderAnswerHeader()}
-          {this._renderQuestionDetails(questionDetail)}
-        </ScrollView>)
+        {
+          isErrorLoadingQuestionDetail
+          ?
+            <RetryView
+              onRetryClick={this._onRetry}
+              errorMsg={'Error loading Question Details'}
+            />
+          :
+          isLoading
+          ?
+            <ActivityIndicator animating size="large" color={COLOR.white} />
+          :
+            <ScrollView>
+              {this._renderCurrentQuestion(currentQuestion)}
+              {this._renderAnswerHeader()}
+              {this._renderQuestionDetails(questionDetail)}
+            </ScrollView>
       }
       </View>
     )
@@ -86,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent:'center',
-    backgroundColor: 'white'
+    backgroundColor: COLOR.white
   },
   headerContainer: {
     margin:16,
@@ -106,7 +122,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   questionDetail: state.Questions.questionDetail,
   isLoading: state.Questions.isLoadingQuestionDetail,
-  currentQuestion: state.Questions.currentSelectedQuestion
+  currentQuestion: state.Questions.currentSelectedQuestion,
+  isErrorLoadingQuestionDetail: state.Questions.isErrorLoadingQuestionDetail
 });
 
 const mapDispatchToProps = dispatch => (

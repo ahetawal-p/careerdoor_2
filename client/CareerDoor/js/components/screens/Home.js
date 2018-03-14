@@ -1,5 +1,5 @@
 import React,  { PureComponent } from 'react'
-import { View, StyleSheet, Text, Button } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as COLOR from '../../utils/colors'
@@ -8,6 +8,7 @@ import * as TopicsActions from '../../actions/Topics'
 import HeaderFilter from '../common/HeaderFilter'
 import CompanyList from '../common/CompanyList'
 import TopicsList from '../common/TopicsList'
+import RetryView from '../common/RetryView'
 
 class Home extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => (
@@ -70,14 +71,10 @@ class Home extends PureComponent {
         {
             isError
             ?
-              <View style={styles.errorContainer}>
-                <Text style={styles.errorText}> Error loading {this.props.currentFilter} </Text>
-                <Button
-                  onPress={this._onRetry}
-                  title="Retry"
-                  color={COLOR.blue600}
-                />
-              </View>
+              <RetryView
+                onRetryClick={this._onRetry}
+                errorMsg={`Error loading ${this.props.currentFilter}`}
+              />
             :
             this.props.currentFilter === 'Companies'
             ?
@@ -106,14 +103,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR.white,
     justifyContent:'center'
-  },
-  errorContainer: {
-    alignSelf:'center'
-  },
-  errorText:{
-    fontSize: 16,
-    fontFamily: 'Roboto-Regular',
-    color: 'gray'
   }
 });
 

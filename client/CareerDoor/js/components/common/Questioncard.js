@@ -21,7 +21,7 @@ export default class extends PureComponent {
       if (!element.startsWith('{{')) {
         return (
           <TouchableHighlight
-            underlayColor={COLOR.grey100}
+            underlayColor={COLOR.grey200}
             key={key}
             onPress={() => this.props.onPress(this.props.question)}
           >

@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import {
     Text,
     StyleSheet,
     View,
     TouchableHighlight,
     Linking,
-    Platform
+    Platform,
+    ScrollView
 } from 'react-native'
+import HTMLView from 'react-native-htmlview'
 import { SUPPORT_EMAIL, APP_VERSION, ANDROID_RATE_APP, IOS_RATE_APP } from 'react-native-dotenv'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import * as COLOR from '../../utils/colors'
+import { DISCLAIMER_TEXT } from '../../constants'
 
 const EMAIL_LINK = `mailto:${SUPPORT_EMAIL}&subject=CareerDoor Feedback&body=Version ${APP_VERSION}`
 
@@ -23,7 +26,7 @@ const openURL = (url) => {
   }).catch(err => console.error('An error occurred', err));
 }
 
-export default class Settings extends React.Component {
+export default class Settings extends PureComponent {
 
   _emailFeedback = () => {
     openURL(EMAIL_LINK)
@@ -39,44 +42,60 @@ export default class Settings extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.section}>
-          <Text style={styles.subHeaderText}>VERSION</Text>
-          <View style={styles.rowContainer}>
-            <View style={styles.row}>
-              <Text style={styles.rowText}>Version</Text>
-              <Text style={styles.rowText}>{APP_VERSION}</Text>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <Text style={styles.subHeaderText}>VERSION</Text>
+            <View style={styles.rowContainer}>
+              <View style={styles.row}>
+                <Text style={styles.rowText}>Version</Text>
+                <Text style={styles.rowText}>{APP_VERSION}</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={[styles.section, { marginTop:32 }]}>
-          <Text style={styles.subHeaderText}>FEEDBACK</Text>
-          <View style={styles.rowContainer}>
-            <TouchableHighlight
-              underlayColor="lightgray"
-              onPress={this._rateApp}
-            >
-              <View style={styles.row}>
-                <Text style={styles.rowText}>Rate App</Text>
-                <Icon name="chevron-right" size={14} color={'gray'} />
-              </View>
-            </TouchableHighlight>
-            <View style={styles.rowDivider} />
-            <TouchableHighlight
-              underlayColor="lightgray"
-              onPress={this._emailFeedback}
-            >
-              <View style={styles.row}>
-                <Text style={styles.rowText}>Email Feedback</Text>
-                <Icon name="chevron-right" size={14} color={'gray'} />
-              </View>
-            </TouchableHighlight>
+          <View style={[styles.section, { marginTop:32 }]}>
+            <Text style={styles.subHeaderText}>FEEDBACK</Text>
+            <View style={styles.rowContainer}>
+              <TouchableHighlight
+                underlayColor="lightgray"
+                onPress={this._rateApp}
+              >
+                <View style={styles.row}>
+                  <Text style={styles.rowText}>Rate App</Text>
+                  <Icon name="chevron-right" size={14} color={'gray'} />
+                </View>
+              </TouchableHighlight>
+              <View style={styles.rowDivider} />
+              <TouchableHighlight
+                underlayColor="lightgray"
+                onPress={this._emailFeedback}
+              >
+                <View style={styles.row}>
+                  <Text style={styles.rowText}>Email Feedback</Text>
+                  <Icon name="chevron-right" size={14} color={'gray'} />
+                </View>
+              </TouchableHighlight>
+            </View>
+
+            <Text style={styles.subHeaderBottomText}>Your feedback helps make this app better</Text>
           </View>
 
-          <Text style={styles.subHeaderBottomText}>Your feedback helps make this app better</Text>
+          <View style={[styles.section, { marginTop:32 }]}>
+            <Text style={styles.subHeaderText}>DISCLAIMER</Text>
+            <View style={styles.rowContainer}>
+              <View style={styles.row}>
+                <HTMLView
+                  value={DISCLAIMER_TEXT}
+                  stylesheet={styles}
+                />
+
+              </View>
+            </View>
+          </View>
+
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -86,6 +105,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent:'flex-start'
+  },
+  p: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 14,
   },
   section:{
     marginVertical:16,

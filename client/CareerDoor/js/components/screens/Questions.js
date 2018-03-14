@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
-
+import RetryView from '../common/RetryView'
 
 class Questions extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
@@ -29,6 +29,10 @@ class Questions extends PureComponent {
 
   _onQuestionBookmark = (question) => {
     this.props.updateBookmark(question)
+  }
+
+  _onRetry = () => {
+    this.props.loadQuestions(1)
   }
 
   _renderItem = ({ item, index }) => (
@@ -64,16 +68,25 @@ class Questions extends PureComponent {
     const isLoadingFirstTime =  this.props.isLoading && this.props.questions.length < this.props.totalCount
     return (
       <View style={[styles.container, isLoadingFirstTime ? { backgroundColor:COLOR.lightBlue600 } : null]}>
-        <FlatList
-          data={this.props.questions}
-          renderItem={this._renderItem}
-          keyExtractor={item => item.qId}
-          ref={(ref) => { this._captureRef = ref }}
-          onEndReached={this._loadMore}
-          onEndReachedThreshold={5}
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          ListFooterComponent={this._renderFooter}
-        />
+        {
+          this.props.isErrorLoadingQuestions
+          ?
+            <RetryView
+              onRetryClick={this._onRetry}
+              errorMsg={'Error loading Questions'}
+            />
+          :
+            <FlatList
+              data={this.props.questions}
+              renderItem={this._renderItem}
+              keyExtractor={item => item.qId}
+              ref={(ref) => { this._captureRef = ref }}
+              onEndReached={this._loadMore}
+              onEndReachedThreshold={5}
+              onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+              ListFooterComponent={this._renderFooter}
+            />
+      }
       </View>
     )
   }
@@ -81,7 +94,9 @@ class Questions extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: COLOR.white,
+    justifyContent:'center'
   },
   loader: {
     paddingVertical: 20
@@ -93,7 +108,8 @@ const mapStateToProps = state => ({
   questions: state.Questions.questions,
   isLoading: state.Questions.isLoadingQuestions,
   pageNo: state.Questions.pageNo,
-  totalCount: state.Questions.totalQCount
+  totalCount: state.Questions.totalQCount,
+  isErrorLoadingQuestions: state.Questions.isErrorLoadingQuestions
 });
 
 const mapDispatchToProps = dispatch => (
