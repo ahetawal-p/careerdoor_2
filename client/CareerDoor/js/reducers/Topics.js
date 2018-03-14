@@ -5,7 +5,6 @@ const initialState = {
   isLoadingTopic: true,
   isErrorLoadingTopic: false,
   isTopicsDataChanged: false,
-  topicsLoadingError:{},
   currentSelectedTopic: {}
 }
 
@@ -23,6 +22,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoadingTopic: true,
+        isErrorLoadingTopic: false,
         isTopicsDataChanged: false,
       }
     }
@@ -31,8 +31,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         isLoadingTopic: false,
         isTopicsDataChanged: false,
-        isErrorLoadingTopic: true,
-        topicsLoadingError: action.error
+        isErrorLoadingTopic: true
       }
     }
     case types.TOPICS_LOAD_MORE: {

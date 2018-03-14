@@ -8,8 +8,8 @@ export async function loadCompanies(callback) {
     const responseJson = await response.json();
     callback(responseJson.Companies, null)
   } catch (error) {
-    console.error(error);
-    callback(null, error)
+    // console.error(error.message);
+    callback(null, error.message)
   }
 }
 
@@ -21,8 +21,8 @@ export async function loadTopics(callback) {
     const responseJson = await response.json();
     callback(responseJson.Topics, null)
   } catch (error) {
-    console.error(error);
-    callback(null, error)
+    // console.error(error.message);
+    callback(null, error.message)
   }
 }
 
@@ -34,8 +34,8 @@ export async function loadQuestions(qUrl, pageNo, callback) {
     const responseJson = await response.json();
     callback(responseJson.Questions, null)
   } catch (error) {
-    console.error(error);
-    callback(null, error)
+    // console.error(error.message);
+    callback(null, error.message)
   }
 }
 
@@ -48,7 +48,7 @@ export async function loadQuestionDetail(questionId, callback) {
     const responseJson = await response.json();
     callback(responseJson.QuestionDetail, null)
   } catch (error) {
-    console.error(error);
-    callback(null, error)
+    // console.error(error.message);
+    callback(null, error.message)
   }
 }

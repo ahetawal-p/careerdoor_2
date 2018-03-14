@@ -5,7 +5,6 @@ const initialState = {
   isLoadingCompany: true,
   isErrorLoadingCompany: false,
   isDataChanged: false,
-  loadingError:{},
   currentSelectedCompany: {}
 }
 
@@ -23,6 +22,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoadingCompany: true,
+        isErrorLoadingCompany: false,
         isDataChanged: false,
       }
     }
@@ -31,8 +31,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         isLoadingCompany: false,
         isDataChanged: false,
-        isErrorLoadingCompany: true,
-        loadingError: action.error
+        isErrorLoadingCompany: true
       }
     }
     case types.COMPANIES_LOAD_MORE: {

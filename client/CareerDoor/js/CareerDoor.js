@@ -110,7 +110,7 @@ class CareerDoor extends React.Component {
     this.props.loadFilter()
   }
 
-  _onFilterSelect =(value) => {
+  _onFilterSelect = (value) => {
     this.props.onFilterUpdate(value)
   }
 
@@ -132,7 +132,7 @@ class CareerDoor extends React.Component {
       <AppNavigator
         navigation={navigation}
         // all these props get passed to all child screens from here
-        screenProps={{ title: currentSelectedFilter, filterProps }}
+        screenProps={{ title: currentSelectedFilter, filterProps,  onRetry: this.props.loadFilter }}
       />
     );
   }
