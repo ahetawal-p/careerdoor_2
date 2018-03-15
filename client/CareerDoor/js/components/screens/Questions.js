@@ -2,7 +2,6 @@ import React,  { PureComponent } from 'react'
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
   FlatList
 } from 'react-native'
 import { bindActionCreators } from 'redux'
@@ -11,6 +10,7 @@ import * as COLOR from '../../utils/colors'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 import RetryView from '../common/RetryView'
+import LottieLoader from '../common/LottieLoader'
 
 class Questions extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
@@ -48,9 +48,7 @@ class Questions extends PureComponent {
   _renderFooter = () => {
     if (this.props.isLoading && this.props.questions.length < this.props.totalCount) {
       return (
-        <View style={styles.loader}>
-          <ActivityIndicator animating size="large" color={COLOR.white} />
-        </View>
+        <LottieLoader />
       )
     }
     return null
@@ -65,9 +63,8 @@ class Questions extends PureComponent {
   }
 
   render() {
-    const isLoadingFirstTime =  this.props.isLoading && this.props.questions.length < this.props.totalCount
     return (
-      <View style={[styles.container, isLoadingFirstTime ? { backgroundColor:COLOR.lightBlue600 } : null]}>
+      <View style={[styles.container]}>
         {
           this.props.isErrorLoadingQuestions
           ?
@@ -97,9 +94,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR.white,
     justifyContent:'center'
-  },
-  loader: {
-    paddingVertical: 20
   }
 });
 

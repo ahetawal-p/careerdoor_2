@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ActivityIndicator,
   ScrollView
 } from 'react-native'
 import { bindActionCreators } from 'redux'
@@ -13,6 +12,7 @@ import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 import QuestionDetailcard from '../common/QuestionDetailcard'
 import RetryView from '../common/RetryView'
+import LottieLoader from '../common/LottieLoader'
 
 class QuestionDetail extends PureComponent {
   static navigationOptions = ({ navigation, screenProps }) => ({ title: `${navigation.state.params.title}` });
@@ -74,7 +74,7 @@ class QuestionDetail extends PureComponent {
     } = this.props
 
     return (
-      <View style={[styles.container, isLoading ? { backgroundColor:COLOR.lightBlue600 } : null]}>
+      <View style={[styles.container]}>
         {
           isErrorLoadingQuestionDetail
           ?
@@ -85,7 +85,7 @@ class QuestionDetail extends PureComponent {
           :
           isLoading
           ?
-            <ActivityIndicator animating size="large" color={COLOR.white} />
+            <LottieLoader />
           :
             <ScrollView>
               {this._renderCurrentQuestion(currentQuestion)}
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'Roboto-Italic',
     color: COLOR.lightBlue800
-  }
+  },
+
 
 });
 

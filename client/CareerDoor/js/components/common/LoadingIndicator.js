@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import {
   Dimensions,
   Animated,
-  ActivityIndicator,
   View
 } from 'react-native'
 import * as COLOR from '../../utils/colors'
+import LottieLoader from './LottieLoader'
 
 export default class extends Component {
 
@@ -63,8 +63,8 @@ export default class extends Component {
     if (this.props.isLoading || this.props.isDataChanged) {
       return (
         <View style={[styles.loadContainer, this.props.style]}>
-          <Animated.View style={[styles.mLoaderView, { opacity: this.loaderOpacity, borderColor:foregroundColor, backgroundColor }]}>
-            <ActivityIndicator color={foregroundColor}  />
+          <Animated.View style={[styles.lottieLoader, { opacity: this.loaderOpacity }]}>
+            <LottieLoader />
           </Animated.View>
 
           <Animated.View style={[styles.mLoaderView, styles.mLoadMoreView, { opacity: this.loadMoreWrapperOpacity, width: this.width, borderColor:foregroundColor, backgroundColor }]}>
@@ -89,7 +89,12 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-
+  lottieLoader: {
+    position: 'absolute',
+    width:100,
+    padding:4,
+    justifyContent: 'center',
+  },
   mLoaderView: {
     position: 'absolute',
     borderRadius: 20,

@@ -1,5 +1,5 @@
 import React,  { PureComponent } from 'react'
-import { Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput, Image } from 'react-native'
+import { Text, View, StyleSheet, FlatList, TouchableHighlight, TextInput } from 'react-native'
 import * as COLOR from '../../utils/colors'
 import LoadingIndicator from '../common/LoadingIndicator'
 

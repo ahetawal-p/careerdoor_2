@@ -7,12 +7,19 @@ import {
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import LottieView from 'lottie-react-native'
 import * as Actions from '../../actions/Questions'
 import Questioncard from '../common/Questioncard'
 import * as COLOR from '../../utils/colors'
+import { EMPTY_LIST } from '../../constants'
 
 class BookmarkQuestions extends PureComponent {
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.questions || nextProps.questions.length === 0) {
+      this._anim.play()
+    }
+  }
 
   _onQuestionPress = (question) => {
     this.props.openQuestionDetail(question)
@@ -37,8 +44,15 @@ class BookmarkQuestions extends PureComponent {
     )
 
   _renderEmptyView = () => (
-    <View style={{ flex:1, alignSelf: 'center', alignItems:'center', justifyContent:'center' }}>
-      <Ionicons name={'ios-book-outline'} size={32} color={COLOR.blue700} />
+    <View style={{ flex:1, alignSelf: 'center', justifyContent:'center' }}>
+      <View style={{ height:100 }}>
+        <LottieView
+          ref={(ref) => { this._anim = ref }}
+          source={EMPTY_LIST}
+          loop
+          enableMergePathsAndroidForKitKatAndAbove
+        />
+      </View>
       <Text style={styles.bookmarkMsgTxt}>No Bookmarks present</Text>
     </View>
     )

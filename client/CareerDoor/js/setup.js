@@ -22,7 +22,7 @@ export default function setup() {
       // show splash screen for 1 sec
       setTimeout(() => {
         this.setState({ dismissSplash:true })
-      }, 1000);
+      }, 2000);
     }
 
     onBeforeLift = () => {
