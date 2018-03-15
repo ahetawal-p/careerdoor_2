@@ -1,6 +1,12 @@
 import React from 'react'
+import { BackHandler } from 'react-native'
 import { connect } from 'react-redux'
-import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation'
+import {
+    addNavigationHelpers,
+    StackNavigator,
+    TabNavigator,
+    TabBarBottom
+} from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { bindActionCreators } from 'redux'
 import * as COLOR from './utils/colors'
@@ -11,10 +17,6 @@ import QuestionDetail from './components/screens/QuestionDetail'
 import Questions from './components/screens/Questions'
 import BookmarkQuestions from './components/screens/BookmarkQuestions'
 import * as Actions from './actions/Filter'
-
-/**
-TODO: FIX ANDROID BACK BUTTON
-* */
 
 const HomeStack = StackNavigator({
   Home: { screen: Home },
@@ -35,7 +37,7 @@ const HomeStack = StackNavigator({
 });
 
 const SettingsStack = StackNavigator({
-  Settings: { screen: Settings }
+  Settings: { screen: Settings, navigationOptions: { title: 'About' } }
 },
   {
     navigationOptions:{
@@ -94,7 +96,9 @@ const tabBarConfiguration = {
     style: {
       backgroundColor: 'white',
     }
-  }
+  },
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: 'bottom',
 }
 
 export const AppNavigator = TabNavigator({
@@ -108,6 +112,25 @@ class CareerDoor extends React.Component {
 
   componentDidMount() {
     this.props.loadFilter()
+    BackHandler.addEventListener('hardwareBackPress', this._onBackButtonPressAndroid)
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this._onBackButtonPressAndroid)
+  }
+
+  _onBackButtonPressAndroid = () => {
+    const { dispatch, nav } = this.props
+    if (this._shouldCloseApp(nav)) return false
+    dispatch({
+      type: 'Navigation/BACK'
+    })
+    return true
+  }
+
+  _shouldCloseApp = (nav) => {
+    const tabIndex = nav.index
+    const homeIndex = nav.routes[0].index
+    return homeIndex === 0 && tabIndex === 0
   }
 
   _onFilterSelect = (value) => {

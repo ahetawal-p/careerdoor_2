@@ -19,7 +19,7 @@ export default function setup() {
         storeCreated: false,
         dismissSplash: false
       }
-      // show splash screen for 1 sec
+      // show splash screen for 2 sec
       setTimeout(() => {
         this.setState({ dismissSplash:true })
       }, 2000);

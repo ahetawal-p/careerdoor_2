@@ -7,7 +7,6 @@ Tab Navigator -
   - Settings
 
 TODO
-- Android (TODO: Backbutton logic)
 - Test IPhoneX
 - Remove setTimeout test code
 - Revisit ioS Launch screen image

@@ -36,16 +36,17 @@ export default class HeaderFilter extends Component {
 const styles = StyleSheet.create({
   container: {
     flex:1,
+    alignSelf: 'center',
     alignItems:'flex-end',
     justifyContent:'flex-end',
   },
   filter:{
-    justifyContent:'flex-end',
-    alignItems:'flex-end'
+    // justifyContent:'flex-end',
+    // alignItems:'flex-end'
   },
   dropdown: {
     width: 100,
-    height: 70,
+    height: 75,
     borderWidth: 1,
   },
   filterText:{
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
   },
   filterContainer:{
-    marginBottom:4,
+    marginBottom:8,
     flexDirection:'row',
     alignItems:'center'
   }
