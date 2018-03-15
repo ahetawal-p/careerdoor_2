@@ -7,15 +7,12 @@ Tab Navigator -
   - Settings
 
 TODO
-- Add topic filter on home screen
-- Error handling on network request failed
-- Lottie loading and splash indicators
+- Android (TODO: Backbutton logic)
+- Test IPhoneX
 - Remove setTimeout test code
 - Revisit ioS Launch screen image
 
 
 Nice to haves
 - Add PTR once server supports
-- Tag filtering or questions type filtering on Home screen
 - Offline support for single question and answer
-- Fix unicode strings
