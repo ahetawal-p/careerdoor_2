@@ -7,9 +7,9 @@ Tab Navigator -
   - Settings
 
 TODO
-- Test IPhoneX
-- Remove setTimeout test code
-- Revisit ioS Launch screen image
+- Fix android release 
+- Update disclaimer date
+- app store links for android and ios
 
 
 Nice to haves

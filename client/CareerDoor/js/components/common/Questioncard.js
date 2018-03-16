@@ -75,6 +75,7 @@ export default class extends PureComponent {
     (
       <TouchableHighlight
         underlayColor={COLOR.grey100}
+        style={styles.bookmark}
         onPress={() => this.props.onBookmarkPress(this.props.question)}
       >{this.props.question.isBookmarked ?
         <Icon name="bookmark" size={18} color={COLOR.yellow700} />
@@ -89,6 +90,7 @@ export default class extends PureComponent {
     (
       <TouchableHighlight
         underlayColor={COLOR.grey100}
+        style={styles.linkOut}
         onPress={() => this.props.onExternalLinkPress(this.props.question)}
       >
         <Icon name="external-link" size={18} color={COLOR.blue700} />
@@ -97,12 +99,8 @@ export default class extends PureComponent {
 
     return (
       <View style={styles.actionContainer}>
-        <View style={styles.linkOut}>
-          {linkOutIcon}
-        </View>
-        <View style={styles.bookmark}>
-          {bookmarkIcon}
-        </View>
+        {linkOutIcon}
+        {bookmarkIcon}
       </View>
     )
   }

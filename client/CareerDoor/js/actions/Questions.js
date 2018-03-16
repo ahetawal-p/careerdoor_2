@@ -34,18 +34,18 @@ export const loadQuestions = pageNo => async (dispatch, getState) => {
         return currElement
       })
       const finalArray = unionby(enrichedBookmarked, allQuestions, 'qId')
-      setTimeout(() => {
-        dispatch({
-          type: types.QUESTIONS_LOAD_COMPLETED,
-          questions:finalArray,
-          pageNo
-        })
-      }, 1000);
-
-      // dispatch({
-      //   type: types.QUESTIONS_LOAD_COMPLETED,
-      //   questions:allQuestions
-      // })
+      dispatch({
+        type: types.QUESTIONS_LOAD_COMPLETED,
+        questions:finalArray,
+        pageNo
+      })
+      // setTimeout(() => {
+      //   dispatch({
+      //     type: types.QUESTIONS_LOAD_COMPLETED,
+      //     questions:finalArray,
+      //     pageNo
+      //   })
+      // }, 1000);
     } else {
       dispatch({
         type: types.QUESTIONS_LOAD_ERROR,
@@ -70,12 +70,16 @@ export const loadQuestionDetail = () => async (dispatch, getState) => {
 
   Service.loadQuestionDetail(selectedQuestion.qId, (allDetails, error) => {
     if (!error && allDetails) {
-      setTimeout(() => {
-        dispatch({
-          type: types.QUESTIONS_DETAIL_LOAD_COMPLETED,
-          questionDetail:allDetails
-        })
-      }, 1000);
+      dispatch({
+        type: types.QUESTIONS_DETAIL_LOAD_COMPLETED,
+        questionDetail:allDetails
+      })
+      // setTimeout(() => {
+      //   dispatch({
+      //     type: types.QUESTIONS_DETAIL_LOAD_COMPLETED,
+      //     questionDetail:allDetails
+      //   })
+      // }, 1000);
     } else {
       dispatch({
         type: types.QUESTIONS_DETAIL_LOAD_ERROR,

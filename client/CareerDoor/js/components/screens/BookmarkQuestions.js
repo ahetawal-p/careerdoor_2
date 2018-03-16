@@ -16,7 +16,7 @@ import { EMPTY_LIST } from '../../constants'
 class BookmarkQuestions extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.questions || nextProps.questions.length === 0) {
+    if (this._anim && (!nextProps.questions || nextProps.questions.length === 0)) {
       this._anim.play()
     }
   }

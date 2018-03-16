@@ -16,13 +16,19 @@ export const loadCompanies = () => async (dispatch, getState) => {
       if (currentDataSize !== 0 && currentDataSize < companiesResponse.length) {
         isDataChanged = true
       }
-      setTimeout(() => {
-        dispatch({
-          type: types.COMPANIES_LOAD_COMPLETED,
-          companies:companiesResponse,
-          isDataChanged
-        })
-      }, 1000);
+      dispatch({
+        type: types.COMPANIES_LOAD_COMPLETED,
+        companies:companiesResponse,
+        isDataChanged
+      })
+
+      // setTimeout(() => {
+      //   dispatch({
+      //     type: types.COMPANIES_LOAD_COMPLETED,
+      //     companies:companiesResponse,
+      //     isDataChanged
+      //   })
+      // }, 1000);
     } else {
       dispatch({
         type: types.COMPANIES_LOAD_ERROR,
@@ -46,13 +52,18 @@ export const loadTopics = () => async (dispatch, getState) => {
       if (currentDataSize !== 0 && currentDataSize < topicsResponse.length) {
         isTopicsDataChanged = true
       }
-      setTimeout(() => {
-        dispatch({
-          type: types.TOPICS_LOAD_COMPLETED,
-          topics:topicsResponse,
-          isTopicsDataChanged
-        })
-      }, 1000);
+      dispatch({
+        type: types.TOPICS_LOAD_COMPLETED,
+        topics:topicsResponse,
+        isTopicsDataChanged
+      })
+      // setTimeout(() => {
+      //   dispatch({
+      //     type: types.TOPICS_LOAD_COMPLETED,
+      //     topics:topicsResponse,
+      //     isTopicsDataChanged
+      //   })
+      // }, 1000);
     } else {
       dispatch({
         type: types.TOPICS_LOAD_ERROR,

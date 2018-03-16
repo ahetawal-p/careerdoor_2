@@ -14,12 +14,12 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import * as COLOR from '../../utils/colors'
 import { DISCLAIMER_TEXT } from '../../constants'
 
-const EMAIL_LINK = `mailto:${SUPPORT_EMAIL}&subject=CareerDoor Feedback&body=Version ${APP_VERSION}`
+const EMAIL_LINK = `mailto:${SUPPORT_EMAIL}?subject=CareerDoor Feedback&body=Version ${APP_VERSION}`
 
 const openURL = (url) => {
   Linking.canOpenURL(url).then((supported) => {
     if (!supported) {
-      console.log(`Cannot handle url: ${url}`);
+      console.error(`Cannot handle url: ${url}`);
     } else {
       return Linking.openURL(url);
     }
