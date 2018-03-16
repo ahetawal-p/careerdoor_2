@@ -1,7 +1,7 @@
 export const SOURCE_BASE_URL = 'https://www.careercup.com'
 
 export const DISCLAIMER_TEXT =
-'Last updated: March 14, 2018 <br/>\
+'Last updated: March 16, 2018 <br/>\
 <p>The information contained on CareerDoor mobile app (the "Service") is for general information purposes only. \
 It is by no means affiliated with <a href="https://www.careercup.com">careercup.com</a>. And assumes no responsibility for errors or omissions in the contents on the Service.</p>\
 <p>In no event shall be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, \
