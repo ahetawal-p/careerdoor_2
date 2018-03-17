@@ -15,7 +15,7 @@ export default class extends PureComponent {
   _renderQuestionDetailContent = (ansText) => {
     const allViews = ansText.map((element, index) => {
       const key = `ans${index}`
-      if (!element.startsWith('{{')) {
+      if (!element.startsWith('{{') || !element.match(REGEX_LANG)) {
         return (
           <View style={styles.textNodeContainer} key={key}>
             <Text style={styles.text} >

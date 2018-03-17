@@ -44,7 +44,6 @@ export async function loadQuestions(qUrl, pageNo, callback) {
 
 export async function loadQuestionDetail(questionId, callback) {
   try {
-    console.log(questionId)
     const response = await fetch(
         `${SERVER_URL}${questionId}`
       );
